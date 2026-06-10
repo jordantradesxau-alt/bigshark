@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIG SHARK</title>
+
+    <!-- =========================
+         STATIC FILES (DO NOT CHANGE PATHS)
+         These MUST exist in /static for Render deployment
+    ========================== -->
+    <link rel="stylesheet" href="../static/files/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/files/css/lightslider.css">
+    <link rel="stylesheet" href="../static/files/css/style.css">
+
+    <link rel="icon" href="../static/images/bigshark.png?v=2">
+
+    <script src="../static/files/js/bootstrap.min.js"></script>
+    <script src="../static/files/js/jquery.js"></script>
+    <script src="../static/files/js/lightslider.js"></script>
+    <script src="../static/files/js/script.js"></script>
+
+    <style>
+        body{
+            background-image: url(../static/images/bigshark.jpg);
+            background-attachment: fixed;
+        }
+
+        .img:hover{
+            transform: scale(1.08);
+            transition: 0.5s;
+        }
+
+        .luxury-heading.silver {
+            background: linear-gradient(270deg,#000,#1c1c1c,#c0c0c0,#e5e5e5,#c0c0c0,#1c1c1c,#000);
+            background-size: 600% 600%;
+            color: #eaeaea;
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1 class="text-center luxury-heading silver">BIG SHARK APPAREL</h1>
+
+<hr>
+
+<!-- NAVBAR -->
+{% include 'navbar.html' %}
+
+<!-- =========================
+     HERO SECTION
+========================= -->
+<section class="row text-center">
+
+    <div class="col-md-4">
+        <a href="/mensattire" class="btn btn-dark">Shop Men</a>
+
+        <!-- STATIC IMAGE (NOT PRODUCT DATA — SAFE TO KEEP LOCAL) -->
+        <img src="../static/images/mensiconbig.png" class="img" style="width:100%; height:400px;">
+    </div>
+
+    <div class="col-md-4">
+        <a href="/accesories" class="btn btn-dark">Accessories</a>
+        <img src="../static/images/homefitpics/accessories banner.jpg" class="img" style="width:100%; height:400px;">
+    </div>
+
+    <div class="col-md-4">
+        <a href="/womensattire" class="btn btn-dark">Shop Women</a>
+        <img src="../static/images/womaniconbig.png" class="img" style="width:100%; height:400px;">
+    </div>
+
+</section>
+
+<br>
+
+<!-- =========================
+     ALERT MARQUEE
+========================= -->
+<marquee>Health • Fitness • Lifestyle</marquee>
+
+<br>
+
+<!-- =========================
+     OFFERS SECTION (SUPABASE IMAGES)
+========================= -->
+<h3>Offers</h3>
+
+<section class="slider px-4">
+    <ul class="cs-hidden autoWidth">
+
+        {% for record in category_offers %}
+
+        <!-- SAFETY CHECK: avoids crash if DB row is empty -->
+        {% if record %}
+
+        <li>
+            <div class="box">
+
+                <div class="slide-img">
+
+                    <!-- 🔥 SUPABASE IMAGE SOURCE -->
+                    <img src="{{ record[4] }}" alt="product image">
+
+                    <div class="overlay">
+                        <a href="/singleitem/{{ record[0] }}" class="buy-btn">Buy now</a>
+                    </div>
+
+                </div>
+
+                <div class="detail text-light">
+                    <b>{{ record[0] }}</b><br>
+                    <b>{{ record[1] }}</b><br>
+                    <p>KES {{ record[2] }}</p>
+                </div>
+
+            </div>
+        </li>
+
+        {% endif %}
+        {% endfor %}
+
+    </ul>
+</section>
+
+<br>
+
+<!-- =========================
+     OTHER ITEMS
+========================= -->
+<h3>More Products</h3>
+
+<section class="slider px-4">
+    <ul class="cs-hidden autoWidth">
+
+        {% for record in category_other %}
+
+        {% if record %}
+
+        <li>
+            <div class="box">
+
+                <div class="slide-img">
+
+                    <!-- 🔥 SUPABASE IMAGE SOURCE -->
+                    <img src="{{ record[4] }}" alt="product image">
+
+                    <div class="overlay">
+                        <a href="/singleitem/{{ record[0] }}" class="buy-btn">Buy now</a>
+                    </div>
+
+                </div>
+
+                <div class="detail text-light">
+                    <b>{{ record[0] }}</b><br>
+                    <b>{{ record[1] }}</b><br>
+                    <p>KES {{ record[2] }}</p>
+                </div>
+
+            </div>
+        </li>
+
+        {% endif %}
+        {% endfor %}
+
+    </ul>
+</section>
+
+<br><br>
+
+<!-- =========================
+     HEALTH BANNER
+========================= -->
+<div class="slide-img">
+
+    <!-- STATIC PROMO IMAGE (OK TO KEEP LOCAL) -->
+    <img src="../static/images/health and fitness products.jpg" style="width:100%">
+
+    <div class="overlay">
+        <a href="/healthproducts" class="buy-btn">Shop now</a>
+    </div>
+
+</div>
+
+<hr>
+
+<!-- HELP SECTION -->
+{% include 'help.html' %}
+
+<footer class="bg-dark text-center text-white p-3">
+    <b>Big Shark © 2026</b>
+</footer>
+
+</body>
+</html>
