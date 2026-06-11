@@ -1,286 +1,205 @@
-from flask import *
-import os
-import psycopg2
-import requests
-
-app = Flask(__name__)
-
-# =========================
-# ENV VARIABLES (RENDER)
-# =========================
-app.secret_key = os.getenv("SECRET_KEY", "dev_secret")
-
-DATABASE_URL = os.getenv("DATABASE_URL")
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_KEY = os.getenv("SUPABASE_SERVICE_KEY")
-
-
-# =========================
-# DATABASE CONNECTION (SUPABASE POSTGRES)
-# =========================
-def get_db():
-    return psycopg2.connect(DATABASE_URL, sslmode='require')
-
-# =========================
-# HOME
-# =========================
-@app.route('/')
-def home():
-
-    conn = get_db()
-    cur = conn.cursor()
-
-    cur.execute('SELECT * FROM store WHERE category=%s', ("offers",))
-    data = cur.fetchall()
-
-    cur.execute('SELECT * FROM store WHERE category=%s', ("other",))
-    data1 = cur.fetchall()
-
-    conn.close()
-
-    return render_template(
-        'index.html',
-        category_offers=data,
-        category_other=data1
-    )
-
-
-# =========================
-# SIGNUP
-# =========================
-@app.route('/signup', methods=['POST', 'GET'])
-def signup():
-
-    if request.method == 'POST':
-
-        username = request.form['username']
-        password = request.form['password']
-        email = request.form['email']
-        location = request.form['location']
-
-        if len(password) < 8:
-            return render_template('index.html', error="PASSWORD MUST BE 8+ CHARACTERS")
-
-        conn = get_db()
-        cur = conn.cursor()
-
-        cur.execute("""
-            INSERT INTO users(username, password, email, location)
-            VALUES (%s, %s, %s, %s)
-        """, (username, password, email, location))
-
-        conn.commit()
-        conn.close()
-
-        return render_template('index.html', success="SIGNUP SUCCESSFUL")
-
-    return render_template('index.html')
-
-
-# =========================
-# LOGIN
-# =========================
-@app.route('/login', methods=['POST', 'GET'])
-def login():
-
-    if request.method == 'POST':
-
-        email = request.form['email']
-        password = request.form['password']
-
-        conn = get_db()
-        cur = conn.cursor()
-
-        cur.execute("""
-            SELECT * FROM users WHERE email=%s AND password=%s
-        """, (email, password))
-
-        user = cur.fetchone()
-        conn.close()
-
-        if user is None:
-            return render_template('index.html', error="INVALID CREDENTIALS")
-
-        session['key'] = user[0]  # username or id depending on schema
-
-        return redirect('/')
-
-    return render_template('index.html')
-
-
-# =========================
-# LOGOUT
-# =========================
-@app.route('/logout')
-def logout():
-    session.clear()
-    return redirect('/')
-
-
-# =========================
-# MEN
-# =========================
-@app.route('/mensattire')
-def mensattire():
-
-    conn = get_db()
-    cur = conn.cursor()
-
-    cur.execute('SELECT * FROM store WHERE category=%s', ("menstops",))
-    data = cur.fetchall()
-
-    cur.execute('SELECT * FROM store WHERE category=%s', ("mensbt",))
-    data1 = cur.fetchall()
-
-    cur.execute('SELECT * FROM store WHERE category=%s', ("other",))
-    data2 = cur.fetchall()
-
-    conn.close()
-
-    return render_template(
-        'mensattire.html',
-        category_menstops=data,
-        category_mensbt=data1,
-        category_other=data2
-    )
-
-
-# =========================
-# ACCESSORIES
-# =========================
-@app.route('/accesories')
-def accesories():
-
-    conn = get_db()
-    cur = conn.cursor()
-
-    cur.execute('SELECT * FROM store WHERE category=%s', ("accesories",))
-    data = cur.fetchall()
-
-    cur.execute('SELECT * FROM store WHERE category=%s', ("other",))
-    data1 = cur.fetchall()
-
-    conn.close()
-
-    return render_template(
-        'accesories.html',
-        category_accesories=data,
-        category_other=data1
-    )
-
-
-# =========================
-# WOMEN
-# =========================
-@app.route('/womensattire')
-def womensattire():
-
-    conn = get_db()
-    cur = conn.cursor()
-
-    cur.execute('SELECT * FROM store WHERE category=%s', ("womenstops",))
-    data = cur.fetchall()
-
-    cur.execute('SELECT * FROM store WHERE category=%s', ("womensbt",))
-    data1 = cur.fetchall()
-
-    cur.execute('SELECT * FROM store WHERE category=%s', ("other",))
-    data2 = cur.fetchall()
-
-    conn.close()
-
-    return render_template(
-        'womensattire.html',
-        category_womenstops=data,
-        category_womensbt=data1,
-        category_other=data2
-    )
-
-
-# =========================
-# SINGLE ITEM
-# =========================
-@app.route('/singleitem/<item>')
-def singleitem(item):
-
-    conn = get_db()
-    cur = conn.cursor()
-
-    cur.execute('SELECT * FROM store WHERE item=%s', (item,))
-    shop = cur.fetchone()
-
-    cur.execute('SELECT * FROM store WHERE category=%s LIMIT 10', ("other",))
-    others = cur.fetchall()
-
-    conn.close()
-
-    return render_template('singleitem.html', item=shop, category_other=others)
-
-
-# =========================
-# STATIC PAGES
-# =========================
-@app.route('/wellnesstips')
-def wellnesstips():
-    return render_template('wellnesstips.html')
-
-
-@app.route('/healthproducts')
-def healthproducts():
-    return render_template('healthproducts.html')
-
-
-# =========================
-# UPLOAD (SUPABASE STORAGE READY)
-# =========================
-@app.route('/upload', methods=['POST', 'GET'])
-def upload():
-
-    if request.method == 'POST':
-
-        item = request.form['item']
-        description = request.form['description']
-        currentp = request.form['currentp']
-        category = request.form['category']
-        image = request.files['image']
-
-        # =========================
-        # SUPABASE STORAGE UPLOAD
-        # =========================
-        filename = image.filename
-
-        upload_url = f"{SUPABASE_URL}/storage/v1/object/store-images/{filename}"
-
-        headers = {
-            "Authorization": f"Bearer {SUPABASE_KEY}",
-            "Content-Type": "application/octet-stream"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIG SHARK</title>
+
+    <!-- =========================
+         STATIC FILES (DO NOT CHANGE PATHS)
+    ========================== -->
+    <link rel="stylesheet" href="../static/files/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/files/css/lightslider.css">
+    <link rel="stylesheet" href="../static/files/css/style.css">
+
+    <link rel="icon" href="../static/images/bigshark.png?v=2">
+
+    <script src="../static/files/js/bootstrap.min.js"></script>
+    <script src="../static/files/js/jquery.js"></script>
+    <script src="../static/files/js/lightslider.js"></script>
+    <script src="../static/files/js/script.js"></script>
+
+    <style>
+        body{
+            background-image: url(../static/images/bigshark.jpg);
+            background-attachment: fixed;
         }
 
-        requests.post(upload_url, headers=headers, data=image.read())
+        .img:hover{
+            transform: scale(1.08);
+            transition: 0.5s;
+        }
 
-        image_url = f"{SUPABASE_URL}/storage/v1/object/public/store-images/{filename}"
+        .luxury-heading.silver {
+            background: linear-gradient(
+                270deg,
+                #000000,
+                #1c1c1c,
+                #c0c0c0,
+                #e5e5e5,
+                #c0c0c0,
+                #1c1c1c,
+                #000000
+            );
 
-        # =========================
-        # SAVE TO DB
-        # =========================
-        conn = get_db()
-        cur = conn.cursor()
+            background-size: 600% 600%;
+            color: #eaeaea;
 
-        cur.execute("""
-            INSERT INTO store(item, description, currentp, category, image)
-            VALUES (%s, %s, %s, %s, %s)
-        """, (item, description, currentp, category, image_url))
+            text-shadow:
+                0 0 5px rgba(192, 192, 192, 0.5),
+                0 0 15px rgba(192, 192, 192, 0.4),
+                0 0 30px rgba(192, 192, 192, 0.3);
 
-        conn.commit()
-        conn.close()
+            animation: gradientFlow 5s ease infinite;
+            padding:15px;
+        }
 
-        return render_template('upload.html', message="UPLOADED TO SUPABASE")
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 50% 50%; }
+            50% { background-position: 100% 50%; }
+            75% { background-position: 50% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
 
-    return render_template('upload.html')
+<body>
 
+<h1 class="text-center luxury-heading silver">BIG SHARK APPAREL</h1>
 
-# =========================
-# RUN
-# =========================
-if __name__ == '__main__':
-    app.run(debug=True, port=7070)
+<hr>
+
+{% include 'navbar.html' %}
+
+<section class="row text-center">
+
+    <div class="col-md-4">
+        <a href="/mensattire" class="btn btn-dark">Shop Men</a>
+
+        <img src="{{ url_for('static', filename='images/mensiconbig.png') }}"
+             class="img"
+             style="width:100%; height:400px;">
+    </div>
+
+    <div class="col-md-4">
+        <a href="/accesories" class="btn btn-dark">Accessories</a>
+
+        <img src="{{ url_for('static', filename='images/homefitpics/accessories banner.jpg') }}"
+             class="img"
+             style="width:100%; height:400px;">
+    </div>
+
+    <div class="col-md-4">
+        <a href="/womensattire" class="btn btn-dark">Shop Women</a>
+
+        <img src="{{ url_for('static', filename='images/womaniconbig.png') }}"
+             class="img"
+             style="width:100%; height:400px;">
+    </div>
+
+</section>
+
+<br>
+
+<marquee>Health • Fitness • Lifestyle</marquee>
+
+<br>
+
+<h3>Offers</h3>
+
+<section class="slider px-4">
+    <ul class="cs-hidden autoWidth">
+
+        {% for record in category_offers %}
+        {% if record %}
+
+        <li>
+            <div class="box">
+
+                <div class="slide-img">
+
+                    <img src="{{ record[4] }}" alt="product image">
+
+                    <div class="overlay">
+                        <a href="/singleitem/{{ record[0] }}" class="buy-btn">Buy now</a>
+                    </div>
+
+                </div>
+
+                <div class="detail text-light">
+                    <b>{{ record[0] }}</b><br>
+                    <b>{{ record[1] }}</b><br>
+                    <p>KES {{ record[2] }}</p>
+                </div>
+
+            </div>
+        </li>
+
+        {% endif %}
+        {% endfor %}
+
+    </ul>
+</section>
+
+<br>
+
+<h3>More Products</h3>
+
+<section class="slider px-4">
+    <ul class="cs-hidden autoWidth">
+
+        {% for record in category_other %}
+        {% if record %}
+
+        <li>
+            <div class="box">
+
+                <div class="slide-img">
+
+                    <img src="{{ record[4] }}" alt="product image">
+
+                    <div class="overlay">
+                        <a href="/singleitem/{{ record[0] }}" class="buy-btn">Buy now</a>
+                    </div>
+
+                </div>
+
+                <div class="detail text-light">
+                    <b>{{ record[0] }}</b><br>
+                    <b>{{ record[1] }}</b><br>
+                    <p>KES {{ record[2] }}</p>
+                </div>
+
+            </div>
+        </li>
+
+        {% endif %}
+        {% endfor %}
+
+    </ul>
+</section>
+
+<br><br>
+
+<div class="slide-img">
+
+    <img src="{{ url_for('static', filename='images/health and fitness products.jpg') }}"
+         style="width:100%">
+
+    <div class="overlay">
+        <a href="/healthproducts" class="buy-btn">Shop now</a>
+    </div>
+
+</div>
+
+<hr>
+
+{% include 'help.html' %}
+
+<footer class="bg-dark text-center text-white p-3">
+    <b>Big Shark © 2026</b>
+</footer>
+
+</body>
+</html>
