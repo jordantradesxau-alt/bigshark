@@ -201,5 +201,67 @@
     <b>Big Shark © 2026</b>
 </footer>
 
+<!-- modal div start -->
+<div class="modal" id="mymodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+                <!-- modal header -->
+                <div class="modal-header">
+                    <h4>LOGIN</h4>
+                    <span>{{error}}</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <!-- modal body -->
+                <div class="modal-body">
+                     <form action="/login" method="POST">
+                        <input type="email" placeholder="Enter email" class="form-control" name="email">
+                        <br>
+                        <input type="password" placeholder="Enter Password" class="form-control" name="password">
+                        <br>
+                        <button type="submit" class="btn btn-danger">submit</button>
+                     </form>
+                </div>
+                <!-- modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">close</button>
+                </div>
+        </div>
+    </div>
+</div>
+<!-- modal div end -->
+
+<!-- modal div start -->
+<div class="modal" id="mymodal2">
+    <div class="modal-dialog">
+        <div class="modal-content">
+                <!-- modal header -->
+                <div class="modal-header">
+                    <h4>SIGNUP</h4>
+                {{success}} {{error}} {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <!-- modal body -->
+                <div class="modal-body">
+                     <form action="/signup" method="POST">
+                        <input type="text" placeholder="Enter username" class="form-control" name="username">
+                        <br>
+                        <input type="password" placeholder="Enter Password" class="form-control" name="password">
+                        <br>
+                        <input type="email" placeholder="Enter email" class="form-control" name="email">
+                        <br>
+                        <input type="text" placeholder="Enter location" class="form-control" name="location">
+                        <br>
+                        <button type="submit" class="btn btn-danger">submit</button>
+                     </form>
+                </div>
+                <!-- modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">close</button>
+                </div>
+        </div>
+    </div>
+</div>
+<!-- modal div end -->
+
 </body>
 </html>
