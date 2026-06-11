@@ -157,7 +157,7 @@
 
                 <div class="slide-img">
 
-                    <img src="{{ record[4] }}" alt="product image">
+                    <img src="{{ url_for('static', filename='images/' + record[4]) }}" alt="product image">
 
                     <div class="overlay">
                         <a href="/singleitem/{{ record[0] }}" class="buy-btn">Buy now</a>
