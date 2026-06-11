@@ -7,7 +7,6 @@
 
     <!-- =========================
          STATIC FILES (DO NOT CHANGE PATHS)
-         These MUST exist in /static for Render deployment
     ========================== -->
     <link rel="stylesheet" href="../static/files/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/files/css/lightslider.css">
@@ -32,10 +31,35 @@
         }
 
         .luxury-heading.silver {
-            background: linear-gradient(270deg,#000,#1c1c1c,#c0c0c0,#e5e5e5,#c0c0c0,#1c1c1c,#000);
+            background: linear-gradient(
+                270deg,
+                #000000,
+                #1c1c1c,
+                #c0c0c0,
+                #e5e5e5,
+                #c0c0c0,
+                #1c1c1c,
+                #000000
+            );
+
             background-size: 600% 600%;
             color: #eaeaea;
-            padding: 15px;
+
+            text-shadow:
+                0 0 5px rgba(192, 192, 192, 0.5),
+                0 0 15px rgba(192, 192, 192, 0.4),
+                0 0 30px rgba(192, 192, 192, 0.3);
+
+            animation: gradientFlow 5s ease infinite;
+            padding:15px;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 50% 50%; }
+            50% { background-position: 100% 50%; }
+            75% { background-position: 50% 50%; }
+            100% { background-position: 0% 50%; }
         }
     </style>
 </head>
@@ -46,53 +70,48 @@
 
 <hr>
 
-<!-- NAVBAR -->
 {% include 'navbar.html' %}
 
-<!-- =========================
-     HERO SECTION
-========================= -->
 <section class="row text-center">
 
     <div class="col-md-4">
         <a href="/mensattire" class="btn btn-dark">Shop Men</a>
 
-        <!-- STATIC IMAGE (NOT PRODUCT DATA — SAFE TO KEEP LOCAL) -->
-        <img src="../static/images/mensiconbig.png" class="img" style="width:100%; height:400px;">
+        <img src="{{ url_for('static', filename='images/mensiconbig.png') }}"
+             class="img"
+             style="width:100%; height:400px;">
     </div>
 
     <div class="col-md-4">
         <a href="/accesories" class="btn btn-dark">Accessories</a>
-        <img src="../static/images/homefitpics/accessories banner.jpg" class="img" style="width:100%; height:400px;">
+
+        <img src="{{ url_for('static', filename='images/homefitpics/accessories banner.jpg') }}"
+             class="img"
+             style="width:100%; height:400px;">
     </div>
 
     <div class="col-md-4">
         <a href="/womensattire" class="btn btn-dark">Shop Women</a>
-        <img src="../static/images/womaniconbig.png" class="img" style="width:100%; height:400px;">
+
+        <img src="{{ url_for('static', filename='images/womaniconbig.png') }}"
+             class="img"
+             style="width:100%; height:400px;">
     </div>
 
 </section>
 
 <br>
 
-<!-- =========================
-     ALERT MARQUEE
-========================= -->
 <marquee>Health • Fitness • Lifestyle</marquee>
 
 <br>
 
-<!-- =========================
-     OFFERS SECTION (SUPABASE IMAGES)
-========================= -->
 <h3>Offers</h3>
 
 <section class="slider px-4">
     <ul class="cs-hidden autoWidth">
 
         {% for record in category_offers %}
-
-        <!-- SAFETY CHECK: avoids crash if DB row is empty -->
         {% if record %}
 
         <li>
@@ -100,7 +119,6 @@
 
                 <div class="slide-img">
 
-                    <!-- 🔥 SUPABASE IMAGE SOURCE -->
                     <img src="{{ record[4] }}" alt="product image">
 
                     <div class="overlay">
@@ -126,16 +144,12 @@
 
 <br>
 
-<!-- =========================
-     OTHER ITEMS
-========================= -->
 <h3>More Products</h3>
 
 <section class="slider px-4">
     <ul class="cs-hidden autoWidth">
 
         {% for record in category_other %}
-
         {% if record %}
 
         <li>
@@ -143,7 +157,6 @@
 
                 <div class="slide-img">
 
-                    <!-- 🔥 SUPABASE IMAGE SOURCE -->
                     <img src="{{ record[4] }}" alt="product image">
 
                     <div class="overlay">
@@ -169,13 +182,10 @@
 
 <br><br>
 
-<!-- =========================
-     HEALTH BANNER
-========================= -->
 <div class="slide-img">
 
-    <!-- STATIC PROMO IMAGE (OK TO KEEP LOCAL) -->
-    <img src="../static/images/health and fitness products.jpg" style="width:100%">
+    <img src="{{ url_for('static', filename='images/health and fitness products.jpg') }}"
+         style="width:100%">
 
     <div class="overlay">
         <a href="/healthproducts" class="buy-btn">Shop now</a>
@@ -185,7 +195,6 @@
 
 <hr>
 
-<!-- HELP SECTION -->
 {% include 'help.html' %}
 
 <footer class="bg-dark text-center text-white p-3">
