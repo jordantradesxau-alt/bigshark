@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+
+```
+<link rel="stylesheet" href="../static/files/css/bootstrap.min.css">
+<link rel="stylesheet" href="../static/files/css/lightslider.css">
+<link rel="stylesheet" href="../static/files/css/style.css">
+
+<link rel="icon" href="../static/images/bigshark.png?v=2">
+
+<script src="../static/files/js/bootstrap.min.js"></script>
+<script src="../static/files/js/jquery.js"></script>
+<script src="../static/files/js/lightslider.js"></script>
+<script src="../static/files/js/script.js"></script>
+
+<style>
+
+    body{
+        background-image:url(../static/images/bigshark.jpg);
+        background-attachment:fixed;
+    }
+
+    .luxury-heading.silver{
+        background: linear-gradient(
+            270deg,
+            #000000,
+            #1c1c1c,
+            #c0c0c0,
+            #e5e5e5,
+            #c0c0c0,
+            #1c1c1c,
+            #000000
+        );
+
+        background-size:600% 600%;
+        color:#eaeaea;
+        padding:15px;
+    }
+
+    .cart-card{
+        background:white;
+        border-radius:15px;
+        padding:15px;
+        margin-bottom:20px;
+        box-shadow:0 0 15px rgba(0,0,0,0.2);
+    }
+
+    .cart-img{
+        width:120px;
+        height:120px;
+        object-fit:cover;
+        border-radius:10px;
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+<h1 class="text-center luxury-heading silver">
+    BIG SHARK APPAREL
+</h1>
+
+<hr>
+
+{% include 'navbar.html' %}
+
+<br>
+
+<div class="container">
+
+```
+<div class="row">
+
+    <div class="col-md-12">
+
+        <h2 class="text-center text-light mb-4">
+            Shopping Cart
+        </h2>
+
+    </div>
+
+</div>
+
+{% if cart_items %}
+
+    {% for key,item in cart_items.items() %}
+
+    <div class="cart-card">
+
+        <div class="row align-items-center">
+
+            <div class="col-md-2">
+
+                <img src="{{ url_for('static', filename='images/' + item.image) }}"
+                     class="cart-img">
+
+            </div>
+
+            <div class="col-md-4">
+
+                <h4>{{ item.name }}</h4>
+
+            </div>
+
+            <div class="col-md-2">
+
+                <b>KES {{ item.price }}</b>
+
+            </div>
+
+            <div class="col-md-2">
+
+                Qty: {{ item.qty }}
+
+            </div>
+
+            <div class="col-md-2">
+
+                <a href="/remove_from_cart/{{ item.name }}"
+                   class="btn btn-danger">
+                    Remove
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+    <div class="card p-4 shadow">
+
+        <h3>
+            Total: KES {{ total }}
+        </h3>
+
+        <br>
+
+        <div>
+
+            <a href="/checkout"
+               class="btn btn-success btn-lg">
+                Proceed To Checkout
+            </a>
+
+            <a href="/"
+               class="btn btn-dark btn-lg">
+                Continue Shopping
+            </a>
+
+        </div>
+
+    </div>
+
+{% else %}
+
+    <div class="card p-5 text-center shadow">
+
+        <h3>
+            Your cart is empty
+        </h3>
+
+        <br>
+
+        <a href="/"
+           class="btn btn-dark">
+           Start Shopping
+        </a>
+
+    </div>
+
+{% endif %}
+```
+
+</div>
+
+<br><br>
+
+{% include 'help.html' %}
+
+<footer class="bg-dark text-center text-white p-3">
+    <b>Big Shark © 2026</b>
+</footer>
+
+</body>
+</html>
