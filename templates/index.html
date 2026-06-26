@@ -101,6 +101,64 @@
 </section>
 
 <br>
+<!-- carousel div -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="carousel slide" id="myCarousel" data-bs-ride="carousel">
+
+            <!-- wrapper for your carousel items -->
+            <div class="carousel-inner">
+
+                <div class="carousel-item active">
+                    <img src="{{ url_for('static', filename='images/homefitpics/carousell2.jpg') }}"
+                         alt="this is slide 2"
+                         class="d-block w-100"
+                         style="height: 485px;">
+                </div>
+
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='images/homefitpics/carousel3.jpg') }}"
+                         alt="this is slide 3"
+                         class="d-block w-100"
+                         style="height: 485px;">
+                </div>
+
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='images/homefitpics/carousel5.jpeg') }}"
+                         alt="this is slide 3"
+                         class="d-block w-100"
+                         style="height: 485px;">
+                </div>
+
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='images/homefitpics/carousel6.webp') }}"
+                         alt="this is slide 3"
+                         class="d-block w-100"
+                         style="height: 485px;">
+                </div>
+
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='images/homefitpics/carousel8.jpg') }}"
+                         alt="this is slide 3"
+                         class="d-block w-100"
+                         style="height: 485px;">
+                </div>
+
+            </div>
+
+            <!-- carousel controls -->
+            <a href="#myCarousel" class="carousel-control-prev" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+
+            <a href="#myCarousel" class="carousel-control-next" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+
+        </div>
+    </div>
+</div>
+<!-- end of carousel div -->
 
 <marquee class="text-light">Health • Fitness • Lifestyle</marquee>
 
