@@ -127,3 +127,311 @@ display: flex;
 	justify-content: center;
 	align-items: center;
 }
+/* ===========================================================
+   BIG SHARK CINEMATIC INTRO
+   =========================================================== */
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    overflow-x:hidden;
+}
+
+/* Prevent scrolling during intro */
+body.loading{
+    overflow:hidden;
+}
+
+/* Intro Overlay */
+#intro-overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:#02060d;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:999999;
+    overflow:hidden;
+    transition:opacity 1.2s ease, visibility 1.2s ease;
+}
+
+/* Hidden after intro */
+#intro-overlay.hide{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+}
+
+/* Logo Container */
+#intro-logo-wrapper{
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Logo */
+#intro-logo{
+    width:min(500px,65vw);
+    max-width:90%;
+    filter:
+        drop-shadow(0 0 20px rgba(0,183,255,.45))
+        drop-shadow(0 0 45px rgba(0,183,255,.25));
+    transform-origin:center;
+    animation:
+        logoFloat 5s ease-in-out infinite,
+        logoWave 2.8s ease-in-out infinite;
+}
+
+/* Ocean glow */
+#intro-overlay::before{
+    content:"";
+    position:absolute;
+    width:600px;
+    height:600px;
+    border-radius:50%;
+    background:radial-gradient(circle,
+        rgba(0,183,255,.18),
+        transparent 70%);
+    animation:pulseGlow 3s ease-in-out infinite;
+}
+
+/* Moving light */
+#intro-overlay::after{
+    content:"";
+    position:absolute;
+    width:200%;
+    height:100%;
+    background:
+        linear-gradient(115deg,
+        transparent 35%,
+        rgba(255,255,255,.08) 50%,
+        transparent 65%);
+    animation:shineMove 5s linear infinite;
+}
+
+/* Flag ripple */
+@keyframes logoWave{
+
+    0%{
+        transform:
+        perspective(900px)
+        rotateY(-6deg)
+        rotateX(2deg)
+        skewY(0deg);
+    }
+
+    25%{
+        transform:
+        perspective(900px)
+        rotateY(4deg)
+        rotateX(-1deg)
+        skewY(.8deg);
+    }
+
+    50%{
+        transform:
+        perspective(900px)
+        rotateY(-5deg)
+        rotateX(1deg)
+        skewY(-.8deg);
+    }
+
+    75%{
+        transform:
+        perspective(900px)
+        rotateY(3deg)
+        rotateX(-2deg)
+        skewY(.6deg);
+    }
+
+    100%{
+        transform:
+        perspective(900px)
+        rotateY(-6deg)
+        rotateX(2deg)
+        skewY(0deg);
+    }
+
+}
+
+/* Floating */
+
+@keyframes logoFloat{
+
+    0%,100%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-12px);
+    }
+
+}
+
+/* Glow */
+
+@keyframes pulseGlow{
+
+    0%,100%{
+        transform:scale(1);
+        opacity:.6;
+    }
+
+    50%{
+        transform:scale(1.25);
+        opacity:1;
+    }
+
+}
+
+/* Shine */
+
+@keyframes shineMove{
+
+    from{
+        transform:translateX(-50%);
+    }
+
+    to{
+        transform:translateX(50%);
+    }
+
+}
+
+/* Main page hidden initially */
+
+#page-content{
+
+    opacity:0;
+    transform:translateY(25px);
+    transition:
+        opacity 1.3s ease,
+        transform 1.3s ease;
+
+}
+
+/* Reveal */
+
+#page-content.show{
+
+    opacity:1;
+    transform:translateY(0);
+
+}
+
+/* Hero reveal */
+
+.fade-up{
+
+    opacity:0;
+    transform:translateY(50px);
+    transition:
+        opacity .9s ease,
+        transform .9s ease;
+
+}
+
+.fade-up.visible{
+
+    opacity:1;
+    transform:translateY(0);
+
+}
+
+/* Luxury scrollbar */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#08131d;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:linear-gradient(
+        #00b7ff,
+        #005d8f
+    );
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#00d4ff;
+
+}
+
+/* Smooth image hover */
+
+img{
+
+    transition:
+        transform .45s ease,
+        box-shadow .45s ease;
+
+}
+
+img:hover{
+
+    transform:scale(1.03);
+
+}
+
+/* Cards */
+
+.box{
+
+    transition:
+        transform .4s ease,
+        box-shadow .4s ease;
+
+}
+
+.box:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.35);
+
+}
+
+/* Buttons */
+
+.btn{
+
+    transition:.35s;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+#intro-logo{
+
+    width:75vw;
+
+}
+
+}
