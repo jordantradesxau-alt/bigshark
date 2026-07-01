@@ -62,7 +62,7 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* INTRO OVERLAY */
+        /* ===== PREMIUM INTRO OVERLAY ===== */
         #intro-overlay {
             position: fixed;
             top: 0;
@@ -70,48 +70,242 @@
             width: 100%;
             height: 100%;
             background: #0a0a0a;
+            z-index: 9999;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 9999;
-            animation: introFade 3s ease forwards;
-            animation-delay: 1.5s;
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 1.2s ease;
+        }
+
+        #intro-overlay.hidden {
+            opacity: 0;
             pointer-events: none;
         }
-        #intro-logo-wrapper {
-            animation: logoZoom 2s ease forwards;
+
+        /* Ambient blue lighting background */
+        .intro-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, #0a1628 0%, #05080f 100%);
+            z-index: 1;
         }
+
+        /* Glow effects */
+        .intro-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .intro-glow-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 100, 255, 0.3), transparent);
+            top: -100px;
+            right: -100px;
+            animation: glowPulse 4s ease-in-out infinite;
+        }
+
+        .intro-glow-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 150, 255, 0.2), transparent);
+            bottom: -80px;
+            left: -80px;
+            animation: glowPulse 5s ease-in-out infinite reverse;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+
+        /* Water ripple layer */
+        .intro-water-ripple {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            pointer-events: none;
+            background: radial-gradient(ellipse at 30% 40%, rgba(0, 50, 150, 0.05) 0%, transparent 70%);
+            animation: rippleMove 8s ease-in-out infinite;
+        }
+
+        @keyframes rippleMove {
+            0% { transform: scale(1) rotate(0deg); opacity: 0.3; }
+            50% { transform: scale(1.1) rotate(5deg); opacity: 0.6; }
+            100% { transform: scale(1) rotate(0deg); opacity: 0.3; }
+        }
+
+        /* Animated light sweep */
+        .intro-light-sweep {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            z-index: 4;
+            pointer-events: none;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.03) 30%,
+                rgba(255, 255, 255, 0.08) 50%,
+                rgba(255, 255, 255, 0.03) 70%,
+                transparent 100%
+            );
+            animation: lightSweep 6s ease-in-out infinite;
+        }
+
+        @keyframes lightSweep {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        /* Particles container */
+        .intro-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(100, 180, 255, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particleFloat linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+        }
+
+        /* Logo wrapper */
+        .intro-logo-wrapper {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .intro-logo-container {
+            position: relative;
+            display: inline-block;
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
         #intro-logo {
-            max-width: 300px;
+            max-width: 400px;
             width: 80%;
             height: auto;
             display: block;
-            opacity: 0;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 0 30px rgba(0, 100, 255, 0.3));
             animation: logoReveal 1.5s ease forwards;
-        }
-        @keyframes logoReveal {
-            0% { opacity: 0; transform: scale(0.6); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-        @keyframes logoZoom {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.2); }
-        }
-        @keyframes introFade {
-            0% { opacity: 1; }
-            100% { opacity: 0; visibility: hidden; }
+            opacity: 0;
+            transform: scale(0.8);
         }
 
-        /* FADE-UP ANIMATION */
+        @keyframes logoReveal {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Logo shine overlay */
+        .intro-logo-shine {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            z-index: 3;
+            background: linear-gradient(135deg,
+                transparent 0%,
+                transparent 40%,
+                rgba(255, 255, 255, 0.15) 45%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0.15) 55%,
+                transparent 60%,
+                transparent 100%
+            );
+            animation: shineSweep 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shineSweep {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        /* Loading indicator */
+        .intro-loader {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            gap: 12px;
+        }
+
+        .intro-loader span {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(100, 180, 255, 0.6);
+            animation: loaderBounce 1.4s ease-in-out infinite both;
+        }
+
+        .intro-loader span:nth-child(1) { animation-delay: -0.32s; }
+        .intro-loader span:nth-child(2) { animation-delay: -0.16s; }
+        .intro-loader span:nth-child(3) { animation-delay: 0s; }
+
+        @keyframes loaderBounce {
+            0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        /* ===== FADE-UP ANIMATION ===== */
         .fade-up {
             opacity: 0;
             transform: translateY(30px);
             animation: fadeUp 0.8s ease forwards;
         }
+
         @keyframes fadeUp {
             0% { opacity: 0; transform: translateY(30px); }
             100% { opacity: 1; transform: translateY(0); }
         }
+
         .fade-up.delay-1 { animation-delay: 0.1s; }
         .fade-up.delay-2 { animation-delay: 0.2s; }
         .fade-up.delay-3 { animation-delay: 0.3s; }
@@ -120,22 +314,113 @@
         .fade-up.delay-6 { animation-delay: 0.6s; }
         .fade-up.delay-7 { animation-delay: 0.7s; }
         .fade-up.delay-8 { animation-delay: 0.8s; }
+
+        /* ===== SCROLL REVEAL CLASSES ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .section-panel {
+            padding: 20px 0;
+        }
+
+        /* ===== HERO SECTION STYLING ===== */
+        .hero-section {
+            position: relative;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            #intro-logo {
+                max-width: 250px;
+            }
+            .intro-glow-1 {
+                width: 300px;
+                height: 300px;
+            }
+            .intro-glow-2 {
+                width: 250px;
+                height: 250px;
+            }
+            .intro-loader {
+                bottom: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #intro-logo {
+                max-width: 180px;
+            }
+            .intro-glow-1 {
+                width: 200px;
+                height: 200px;
+            }
+            .intro-glow-2 {
+                width: 150px;
+                height: 150px;
+            }
+            .intro-loader span {
+                width: 8px;
+                height: 8px;
+            }
+        }
     </style>
 </head>
 
 <body>
 
-    <!-- INTRO OVERLAY -->
+    <!-- ===== PREMIUM CINEMATIC INTRO OVERLAY ===== -->
     <div id="intro-overlay">
-        <div id="intro-logo-wrapper">
-            <img
-                id="intro-logo"
-                src="{{ url_for('static', filename='images/bigshark_logo.png') }}"
-                alt="Big Shark Logo">
+        <!-- Ambient background -->
+        <div class="intro-bg"></div>
+
+        <!-- Glow effects -->
+        <div class="intro-glow intro-glow-1"></div>
+        <div class="intro-glow intro-glow-2"></div>
+
+        <!-- Water ripple layer -->
+        <div class="intro-water-ripple"></div>
+
+        <!-- Animated light sweep -->
+        <div class="intro-light-sweep"></div>
+
+        <!-- Particles container -->
+        <div class="intro-particles" id="intro-particles"></div>
+
+        <!-- Logo container -->
+        <div class="intro-logo-wrapper">
+            <div class="intro-logo-container">
+                <img
+                    id="intro-logo"
+                    src="{{ url_for('static', filename='images/bigshark_logo.png') }}"
+                    alt="Big Shark Logo">
+                <div class="intro-logo-shine"></div>
+            </div>
+        </div>
+
+        <!-- Loading indicator -->
+        <div class="intro-loader">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
     </div>
 
-    <!-- PAGE CONTENT WRAPPER -->
+    <!-- ===== PAGE CONTENT WRAPPER ===== -->
     <div id="page-content">
 
         <h1 class="text-center luxury-heading silver fade-up">BIG SHARK APPAREL</h1>
@@ -144,7 +429,8 @@
 
         {% include 'navbar.html' %}
 
-        <section class="row text-center fade-up delay-1">
+        <!-- HERO SECTION -->
+        <section class="row text-center fade-up delay-1 hero-section section-panel">
 
             <div class="col-md-4">
                 <a href="/mensattire" class="btn btn-dark">Shop Men</a>
@@ -174,7 +460,7 @@
 
         <br>
         <!-- carousel div -->
-        <div class="row fade-up delay-2">
+        <div class="row fade-up delay-2 section-panel reveal">
             <div class="col-md-12">
                 <div class="carousel slide" id="myCarousel" data-bs-ride="carousel">
 
@@ -236,9 +522,9 @@
 
         <br>
 
-        <h3 class="text-light fade-up delay-4">Offers</h3>
+        <h3 class="text-light fade-up delay-4 section-panel reveal">Offers</h3>
 
-        <section class="slider px-4 fade-up delay-5">
+        <section class="slider px-4 fade-up delay-5 section-panel reveal">
             <ul class="cs-hidden autoWidth">
 
                 {% for record in category_offers %}
@@ -307,9 +593,9 @@
 
         <br>
 
-        <h3 class="fade-up delay-6">More Products</h3>
+        <h3 class="fade-up delay-6 section-panel reveal">More Products</h3>
 
-        <section class="slider px-4 fade-up delay-7">
+        <section class="slider px-4 fade-up delay-7 section-panel reveal">
             <ul class="cs-hidden autoWidth">
 
                 {% for record in category_other %}
@@ -378,7 +664,7 @@
 
         <br><br>
 
-        <div class="slide-img fade-up delay-8">
+        <div class="slide-img fade-up delay-8 section-panel reveal">
 
             <img src="{{ url_for('static', filename='images/healthandfitnessproducts.jpg') }}"
                  style="width:100%">
@@ -393,7 +679,7 @@
 
         {% include 'help.html' %}
 
-        <footer class="bg-dark text-center text-white p-3 fade-up delay-8">
+        <footer class="bg-dark text-center text-white p-3 fade-up delay-8 section-panel">
             <b>Big Shark © 2026</b>
         </footer>
 
@@ -461,6 +747,34 @@
 
     </div>
     <!-- END PAGE CONTENT WRAPPER -->
+
+    <!-- ===== INTRO REVEAL SCRIPT ===== -->
+    <script>
+        // Hide intro after animation completes
+        document.addEventListener('DOMContentLoaded', function() {
+            const intro = document.getElementById('intro-overlay');
+            
+            // Create particles
+            const particlesContainer = document.getElementById('intro-particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const size = Math.random() * 4 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 20 + 15) + 's';
+                particle.style.animationDelay = (Math.random() * 10) + 's';
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                particlesContainer.appendChild(particle);
+            }
+
+            // Hide intro after 4 seconds
+            setTimeout(function() {
+                intro.classList.add('hidden');
+            }, 4000);
+        });
+    </script>
 
 </body>
 </html>
