@@ -343,10 +343,12 @@
             position: relative;
         }
 
-        /* ===== RESPONSIVE ===== */
+        /* ===== MOBILE RESPONSIVE ENHANCEMENTS ===== */
         @media (max-width: 768px) {
+            /* Intro adjustments */
             #intro-logo {
                 max-width: 250px;
+                width: 85%;
             }
             .intro-glow-1 {
                 width: 300px;
@@ -359,11 +361,146 @@
             .intro-loader {
                 bottom: 40px;
             }
+            .intro-loader span {
+                width: 10px;
+                height: 10px;
+            }
+
+            /* Heading */
+            .luxury-heading.silver {
+                font-size: 1.8rem !important;
+                padding: 12px 8px;
+                margin: 10px 0;
+            }
+
+            /* Hero section images */
+            .hero-section .col-md-4 {
+                margin-bottom: 20px;
+                padding: 0 10px;
+            }
+            
+            .hero-section .col-md-4 img {
+                height: 250px !important;
+                border-radius: 12px;
+                object-fit: cover;
+            }
+
+            .hero-section .btn {
+                font-size: 0.9rem;
+                padding: 8px 20px;
+                margin-bottom: 8px;
+                display: inline-block;
+                width: auto;
+            }
+
+            /* Carousel */
+            .carousel-item img {
+                height: 280px !important;
+                object-fit: cover;
+            }
+
+            /* Marquee */
+            marquee h3 {
+                font-size: 1.2rem;
+            }
+
+            /* Section headings */
+            h3.text-light {
+                font-size: 1.4rem;
+                padding-left: 15px;
+            }
+
+            /* Slider / Products */
+            .slider {
+                padding: 0 10px !important;
+            }
+            
+            .box {
+                margin: 8px;
+                border-radius: 12px;
+            }
+            
+            .slide-img {
+                height: 180px;
+            }
+            
+            .detail b {
+                font-size: 0.9rem;
+            }
+            
+            .detail p {
+                font-size: 0.85rem;
+            }
+
+            /* Health products banner */
+            .slide-img img[style*="width:100%"] {
+                border-radius: 12px;
+                margin: 0 10px;
+                width: calc(100% - 20px) !important;
+            }
+
+            /* Help section */
+            .help-section {
+                padding: 0 15px;
+            }
+
+            /* Footer */
+            footer {
+                font-size: 0.9rem;
+                padding: 15px !important;
+            }
+
+            /* Modals */
+            .modal-dialog {
+                margin: 10px;
+            }
+            
+            .modal-header h4 {
+                font-size: 1.2rem;
+            }
+            
+            .modal-body input {
+                font-size: 0.95rem;
+                padding: 10px;
+            }
+
+            /* General spacing */
+            .section-panel {
+                padding: 10px 0;
+            }
+            
+            .fade-up {
+                transform: translateY(20px);
+            }
+            
+            hr {
+                margin: 15px 0;
+            }
+
+            /* Navbar mobile */
+            .navbar {
+                padding: 8px 15px;
+            }
+            
+            .navbar-brand {
+                font-size: 1.1rem;
+            }
+            
+            .navbar-toggler {
+                padding: 4px 8px;
+            }
+            
+            .navbar-nav .nav-link {
+                font-size: 0.95rem;
+                padding: 8px 0;
+            }
         }
 
         @media (max-width: 480px) {
+            /* Extra small devices */
             #intro-logo {
                 max-width: 180px;
+                width: 90%;
             }
             .intro-glow-1 {
                 width: 200px;
@@ -376,6 +513,63 @@
             .intro-loader span {
                 width: 8px;
                 height: 8px;
+            }
+
+            .luxury-heading.silver {
+                font-size: 1.4rem !important;
+                padding: 10px 5px;
+            }
+
+            .hero-section .col-md-4 img {
+                height: 200px !important;
+            }
+
+            .carousel-item img {
+                height: 200px !important;
+            }
+
+            marquee h3 {
+                font-size: 1rem;
+            }
+
+            h3.text-light {
+                font-size: 1.2rem;
+            }
+
+            .slide-img {
+                height: 150px;
+            }
+
+            .buy-btn {
+                width: 120px;
+                height: 35px;
+                font-size: 0.8rem;
+            }
+
+            .overlay {
+                opacity: 60%;
+            }
+
+            .btn-sm {
+                font-size: 0.75rem;
+                padding: 4px 12px;
+            }
+
+            .detail b {
+                font-size: 0.8rem;
+            }
+
+            .detail p {
+                font-size: 0.8rem;
+            }
+
+            .modal-header h4 {
+                font-size: 1rem;
+            }
+
+            .modal-body input {
+                font-size: 0.85rem;
+                padding: 8px;
             }
         }
     </style>
@@ -432,24 +626,24 @@
         <!-- HERO SECTION -->
         <section class="row text-center fade-up delay-1 hero-section section-panel">
 
-            <div class="col-md-4">
-                <a href="/mensattire" class="btn btn-dark">Shop Men</a>
+            <div class="col-md-4 col-sm-12 col-12">
+                <a href="/mensattire" class="btn btn-dark d-block d-sm-inline-block">Shop Men</a>
 
                 <img src="{{ url_for('static', filename='images/mensiconbig.png') }}"
                      class="img"
                      style="width:100%; height:400px;">
             </div>
 
-            <div class="col-md-4">
-                <a href="/accesories" class="btn btn-dark">Accessories</a>
+            <div class="col-md-4 col-sm-12 col-12">
+                <a href="/accesories" class="btn btn-dark d-block d-sm-inline-block">Accessories</a>
 
                 <img src="{{ url_for('static', filename='images/homefitpics/accessoriesbanner.jpg') }}"
                      class="img"
                      style="width:100%; height:400px;">
             </div>
 
-            <div class="col-md-4">
-                <a href="/womensattire" class="btn btn-dark">Shop Women</a>
+            <div class="col-md-4 col-sm-12 col-12">
+                <a href="/womensattire" class="btn btn-dark d-block d-sm-inline-block">Shop Women</a>
 
                 <img src="{{ url_for('static', filename='images/womaniconbig.png') }}"
                      class="img"
