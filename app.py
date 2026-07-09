@@ -2,7 +2,6 @@ from flask import *
 import os
 import psycopg2
 import requests
-import send_from_directory
 from datetime import datetime
 
 app = Flask(__name__)
