@@ -2,6 +2,7 @@ from flask import *
 import os
 import psycopg2
 import requests
+import send_from_directory
 from datetime import datetime
 
 app = Flask(__name__)
@@ -229,6 +230,15 @@ def wellnesstips():
 @app.route('/healthproducts')
 def healthproducts():
     return render_template('healthproducts.html')
+
+
+@app.route('/robots.txt')
+def robots():
+    return send_from_directory(app.root_path, 'robots.txt')
+
+@app.route('/sitemap.xml')
+def sitemap():
+    return send_from_directory(app.root_path, 'sitemap.xml')
 
 
 # =========================
