@@ -65,7 +65,8 @@ def upload_image(file, folder='products'):
         ext = file.filename.rsplit('.', 1)[1].lower() if '.' in file.filename else 'jpg'
         filename = f"{folder}/{uuid.uuid4().hex}.{ext}"
         
-        upload_url = f"{SUPABASE_URL}/storage/v1/object/store-images/{filename}"
+        base_url = SUPABASE_URL.replace('/rest/v1/', '')
+        upload_url = f"{base_url}/storage/v1/object/store-images/{filename}"
         
         headers = {
             "Authorization": f"Bearer {SUPABASE_KEY}",
