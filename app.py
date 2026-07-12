@@ -62,24 +62,28 @@ def upload_image(file, folder='products'):
         return None
     
     try:
-        # Get file extension
         ext = file.filename.rsplit('.', 1)[1].lower() if '.' in file.filename else 'jpg'
-        
-        # Generate unique filename
         filename = f"{folder}/{uuid.uuid4().hex}.{ext}"
         
-        # Upload to Supabase
         upload_url = f"{SUPABASE_URL}/storage/v1/object/store-images/{filename}"
+        
         headers = {
             "Authorization": f"Bearer {SUPABASE_KEY}",
+            "apikey": SUPABASE_KEY,  # ✅ ADDED
             "Content-Type": "application/octet-stream"
         }
         
         response = requests.post(upload_url, headers=headers, data=file.read())
         
-        if response.status_code != 200:
+        if response.status_code not in [200, 201]:
             print(f"Upload failed: {response.text}")
             return None
+        
+        image_url = f"{SUPABASE_URL}/storage/v1/object/public/store-images/{filename}"
+        return image_url
+    except Exception as e:
+        print(f"Upload error: {e}")
+        return None
         
         # Get public URL
         image_url = f"{SUPABASE_URL}/storage/v1/object/public/store-images/{filename}"
