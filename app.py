@@ -128,7 +128,7 @@ def cart_count():
 # ============================================================
 
 @app.route('/')
-def home():
+def index():
     conn = get_db()
     if not conn:
         return render_template('index.html', 
