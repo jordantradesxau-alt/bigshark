@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="google-site-verification" content="5EXDDZaZvAUP4ygJR4N5XLwiktPoUeXOwpL-djnO65c" />
+    <meta name="description" content="Shop premium gym apparel, fitness equipment, accessories and wellness products from Big Shark Apparel in Kenya.">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Big Shark Apparel">
+    <meta property="og:description" content="Premium Gym Apparel, Fitness Equipment, Accessories and Wellness Products in Kenya.">
+    <meta property="og:image" content="https://bigshark.onrender.com/static/images/bigshark_logo.png">
+    <meta property="og:url" content="https://bigshark.onrender.com/">
+    <meta property="og:type" content="website">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Big Shark Apparel">
+    <meta name="twitter:description" content="Premium Gym Apparel, Fitness Equipment, Accessories and Wellness Products in Kenya.">
+    <meta name="twitter:image" content="https://bigshark.onrender.com/static/images/bigshark_logo.png">
+    <title>Big Shark Apparel | Premium Gym Apparel & Fitness Equipment Kenya</title>
+
+    <!-- =========================
+         STATIC FILES (DO NOT CHANGE PATHS)
+    ========================== -->
+    <link rel="stylesheet" href="../static/files/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/files/css/lightslider.css">
+    <link rel="stylesheet" href="../static/files/css/style.css">
+
+    <link rel="icon" href="../static/images/bigshark.png?v=2">
+
+    <script src="../static/files/js/bootstrap.min.js"></script>
+    <script src="../static/files/js/jquery.js"></script>
+    <script src="../static/files/js/lightslider.js"></script>
+    <script src="../static/files/js/script.js"></script>
+    <script type="application/ld+json">
+        {
+          "@context":"https://schema.org",
+          "@type":"Organization",
+          "name":"Big Shark Apparel",
+          "url":"https://bigshark.onrender.com/",
+          "logo":"https://bigshark.onrender.com/static/images/bigshark_logo.png",
+          "description":"Big Shark Apparel is a Kenyan online store offering premium gym apparel, fitness equipment, accessories and wellness products.",
+          "sameAs":[]
+        }
+    </script>
+
+    <style>
+        body{
+            background-image: url(../static/images/bigshark.jpg);
+            background-attachment: fixed;
+        }
+
+        .img:hover{
+            transform: scale(1.08);
+            transition: 0.5s;
+        }
+
+        .luxury-heading.silver {
+            background: linear-gradient(
+                270deg,
+                #000000,
+                #1c1c1c,
+                #c0c0c0,
+                #e5e5e5,
+                #c0c0c0,
+                #1c1c1c,
+                #000000
+            );
+
+            background-size: 600% 600%;
+            color: #eaeaea;
+
+            text-shadow:
+                0 0 5px rgba(192, 192, 192, 0.5),
+                0 0 15px rgba(192, 192, 192, 0.4),
+                0 0 30px rgba(192, 192, 192, 0.3);
+
+            animation: gradientFlow 5s ease infinite;
+            padding:15px;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 50% 50%; }
+            50% { background-position: 100% 50%; }
+            75% { background-position: 50% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ===== PREMIUM INTRO OVERLAY ===== */
+        #intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 1.2s ease;
+        }
+
+        #intro-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Ambient blue lighting background */
+        .intro-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, #0a1628 0%, #05080f 100%);
+            z-index: 1;
+        }
+
+        /* Glow effects */
+        .intro-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .intro-glow-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 100, 255, 0.3), transparent);
+            top: -100px;
+            right: -100px;
+            animation: glowPulse 4s ease-in-out infinite;
+        }
+
+        .intro-glow-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 150, 255, 0.2), transparent);
+            bottom: -80px;
+            left: -80px;
+            animation: glowPulse 5s ease-in-out infinite reverse;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+
+        /* Water ripple layer */
+        .intro-water-ripple {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            pointer-events: none;
+            background: radial-gradient(ellipse at 30% 40%, rgba(0, 50, 150, 0.05) 0%, transparent 70%);
+            animation: rippleMove 8s ease-in-out infinite;
+        }
+
+        @keyframes rippleMove {
+            0% { transform: scale(1) rotate(0deg); opacity: 0.3; }
+            50% { transform: scale(1.1) rotate(5deg); opacity: 0.6; }
+            100% { transform: scale(1) rotate(0deg); opacity: 0.3; }
+        }
+
+        /* Animated light sweep */
+        .intro-light-sweep {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            z-index: 4;
+            pointer-events: none;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.03) 30%,
+                rgba(255, 255, 255, 0.08) 50%,
+                rgba(255, 255, 255, 0.03) 70%,
+                transparent 100%
+            );
+            animation: lightSweep 6s ease-in-out infinite;
+        }
+
+        @keyframes lightSweep {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        /* Particles container */
+        .intro-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(100, 180, 255, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particleFloat linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+        }
+
+        /* Logo wrapper */
+        .intro-logo-wrapper {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .intro-logo-container {
+            position: relative;
+            display: inline-block;
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        #intro-logo {
+            max-width: 400px;
+            width: 80%;
+            height: auto;
+            display: block;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 0 30px rgba(0, 100, 255, 0.3));
+            animation: logoReveal 1.5s ease forwards;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        @keyframes logoReveal {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Logo shine overlay */
+        .intro-logo-shine {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            z-index: 3;
+            background: linear-gradient(135deg,
+                transparent 0%,
+                transparent 40%,
+                rgba(255, 255, 255, 0.15) 45%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0.15) 55%,
+                transparent 60%,
+                transparent 100%
+            );
+            animation: shineSweep 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shineSweep {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        /* Loading indicator */
+        .intro-loader {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            gap: 12px;
+        }
+
+        .intro-loader span {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(100, 180, 255, 0.6);
+            animation: loaderBounce 1.4s ease-in-out infinite both;
+        }
+
+        .intro-loader span:nth-child(1) { animation-delay: -0.32s; }
+        .intro-loader span:nth-child(2) { animation-delay: -0.16s; }
+        .intro-loader span:nth-child(3) { animation-delay: 0s; }
+
+        @keyframes loaderBounce {
+            0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        /* ===== FADE-UP ANIMATION ===== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-up.delay-1 { animation-delay: 0.1s; }
+        .fade-up.delay-2 { animation-delay: 0.2s; }
+        .fade-up.delay-3 { animation-delay: 0.3s; }
+        .fade-up.delay-4 { animation-delay: 0.4s; }
+        .fade-up.delay-5 { animation-delay: 0.5s; }
+        .fade-up.delay-6 { animation-delay: 0.6s; }
+        .fade-up.delay-7 { animation-delay: 0.7s; }
+        .fade-up.delay-8 { animation-delay: 0.8s; }
+
+        /* ===== SCROLL REVEAL CLASSES ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .section-panel {
+            padding: 20px 0;
+        }
+
+        /* ===== HERO SECTION STYLING ===== */
+        .hero-section {
+            position: relative;
+        }
+
+        /* ===== OFFERS BANNER ===== */
+        .offers-banner {
+            background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(0,0,0,0.8));
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 16px;
+            padding: 20px 30px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .offers-banner h4 {
+            color: #d4af37;
+            font-weight: 700;
+        }
+
+        .offers-banner p {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .offers-banner .btn-gold {
+            background: linear-gradient(135deg, #d4af37, #b8962e);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            padding: 10px 30px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .offers-banner .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212,175,55,0.3);
+            color: #fff;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            #intro-logo {
+                max-width: 250px;
+            }
+            .intro-glow-1 {
+                width: 300px;
+                height: 300px;
+            }
+            .intro-glow-2 {
+                width: 250px;
+                height: 250px;
+            }
+            .intro-loader {
+                bottom: 40px;
+            }
+            .offers-banner {
+                padding: 15px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #intro-logo {
+                max-width: 180px;
+            }
+            .intro-glow-1 {
+                width: 200px;
+                height: 200px;
+            }
+            .intro-glow-2 {
+                width: 150px;
+                height: 150px;
+            }
+            .intro-loader span {
+                width: 8px;
+                height: 8px;
+            }
+            .offers-banner h4 {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* ===== REVIEWS SECTION ===== */
+        .review-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(212,175,55,0.3);
+        }
+
+        .review-card .stars {
+            color: #d4af37;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .review-card .review-text {
+            color: rgba(255,255,255,0.85);
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+
+        .review-card .review-author {
+            color: #d4af37;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        .review-card .review-author small {
+            color: rgba(255,255,255,0.4);
+            font-weight: 400;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== PREMIUM CINEMATIC INTRO OVERLAY ===== -->
+    <div id="intro-overlay">
+        <!-- Ambient background -->
+        <div class="intro-bg"></div>
+
+        <!-- Glow effects -->
+        <div class="intro-glow intro-glow-1"></div>
+        <div class="intro-glow intro-glow-2"></div>
+
+        <!-- Water ripple layer -->
+        <div class="intro-water-ripple"></div>
+
+        <!-- Animated light sweep -->
+        <div class="intro-light-sweep"></div>
+
+        <!-- Particles container -->
+        <div class="intro-particles" id="intro-particles"></div>
+
+        <!-- Logo container -->
+        <div class="intro-logo-wrapper">
+            <div class="intro-logo-container">
+                <img
+                    id="intro-logo"
+                    src="{{ url_for('static', filename='images/bigshark_logo.png') }}"
+                    alt="Big Shark Logo">
+                <div class="intro-logo-shine"></div>
+            </div>
+        </div>
+
+        <!-- Loading indicator -->
+        <div class="intro-loader">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <!-- ===== PAGE CONTENT WRAPPER ===== -->
+    <div id="page-content">
+
+        <h1 class="text-center luxury-heading silver fade-up">BIG SHARK APPAREL</h1>
+
+        <hr>
+
+        {% include 'navbar.html' %}
+
+        <!-- ===== OFFERS BANNER (Only for non-logged-in users) ===== -->
+        {% if not session.get('user_id') %}
+        <div class="container">
+            <div class="offers-banner fade-up delay-1">
+                <h4>🦈 Exclusive Member Offers</h4>
+                <p>Create an account to unlock special discounts and exclusive deals!</p>
+                <a href="#" class="btn-gold" data-bs-toggle="modal" data-bs-target="#mymodal2">Sign Up Now</a>
+                <span style="color: rgba(255,255,255,0.3); margin: 0 12px;">or</span>
+                <a href="#" style="color: #d4af37;" data-bs-toggle="modal" data-bs-target="#mymodal">Login</a>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- HERO SECTION -->
+        <section class="row text-center fade-up delay-1 hero-section section-panel">
+
+            <div class="col-md-4">
+                <a href="/mensattire" class="btn btn-dark">Shop Men</a>
+
+                <img src="{{ url_for('static', filename='images/mensiconbig.png') }}"
+                     class="img"
+                     style="width:100%; height:400px;">
+            </div>
+
+            <div class="col-md-4">
+                <a href="/accesories" class="btn btn-dark">Accessories</a>
+
+                <img src="{{ url_for('static', filename='images/homefitpics/accessoriesbanner.jpg') }}"
+                     class="img"
+                     style="width:100%; height:400px;">
+            </div>
+
+            <div class="col-md-4">
+                <a href="/womensattire" class="btn btn-dark">Shop Women</a>
+
+                <img src="{{ url_for('static', filename='images/womaniconbig.png') }}"
+                     class="img"
+                     style="width:100%; height:400px;">
+            </div>
+
+        </section>
+
+        <br>
+        <!-- carousel div -->
+        <div class="row fade-up delay-2 section-panel reveal">
+            <div class="col-md-12">
+                <div class="carousel slide" id="myCarousel" data-bs-ride="carousel">
+
+                    <!-- wrapper for your carousel items -->
+                    <div class="carousel-inner">
+
+                        <div class="carousel-item active">
+                            <img src="{{ url_for('static', filename='images/homefitpics/carousell2.jpg') }}"
+                                 alt="this is slide 2"
+                                 class="d-block w-100"
+                                 style="height: 485px;">
+                        </div>
+
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='images/homefitpics/carousel3.jpg') }}"
+                                 alt="this is slide 3"
+                                 class="d-block w-100"
+                                 style="height: 485px;">
+                        </div>
+
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='images/homefitpics/carousel5.jpeg') }}"
+                                 alt="this is slide 3"
+                                 class="d-block w-100"
+                                 style="height: 485px;">
+                        </div>
+
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='images/homefitpics/carousel6.webp') }}"
+                                 alt="this is slide 3"
+                                 class="d-block w-100"
+                                 style="height: 485px;">
+                        </div>
+
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='images/homefitpics/carousel8.jpg') }}"
+                                 alt="this is slide 3"
+                                 class="d-block w-100"
+                                 style="height: 485px;">
+                        </div>
+
+                    </div>
+
+                    <!-- carousel controls -->
+                    <a href="#myCarousel" class="carousel-control-prev" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </a>
+
+                    <a href="#myCarousel" class="carousel-control-next" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <!-- end of carousel div -->
+
+        <marquee class="text-light fade-up delay-3"><h3>Health • Fitness • Lifestyle</h3></marquee>
+
+        <br>
+
+        <h3 class="text-light fade-up delay-4 section-panel reveal">Offers</h3>
+
+        <section class="slider px-4 fade-up delay-5 section-panel reveal">
+            <ul class="cs-hidden autoWidth">
+
+                {% for record in offers %}
+                {% if record %}
+
+                <li>
+                    <div class="box">
+
+                        <div class="slide-img">
+
+                            {% if record.image_url %}
+                            <img src="{{ record.image_url }}" alt="{{ record.item }}">
+                            {% else %}
+                            <img src="{{ url_for('static', filename='images/' + record.image) }}" alt="{{ record.item }}">
+                            {% endif %}
+
+                            <div class="overlay">
+
+                            <a href="/singleitem/{{ record.item }}"
+                            class="buy-btn">
+                            Buy Now
+                            </a>
+
+                            <br><br>
+
+                            <form action="/add_to_cart"
+                                method="POST">
+
+                                <input type="hidden"
+                                    name="item"
+                                    value="{{ record.item }}">
+
+                                <input type="hidden"
+                                    name="price"
+                                    value="{{ record.currentp }}">
+
+                                <input type="hidden"
+                                    name="image"
+                                    value="{{ record.image }}">
+
+                                <input type="hidden"
+                                    name="qty"
+                                    value="1">
+
+                                <button type="submit"
+                                        class="btn btn-success btn-sm">
+                                    Add To Cart
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                        </div>
+
+                        <div class="detail text-light">
+                            <b>{{ record.item }}</b><br>
+                            <b>{{ record.description }}</b><br>
+                            <p>KES {{ record.currentp }}</p>
+                        </div>
+
+                    </div>
+                </li>
+
+                {% endif %}
+                {% endfor %}
+
+            </ul>
+        </section>
+
+        <br>
+
+        <h3 class="fade-up delay-6 section-panel reveal">More Products</h3>
+
+        <section class="slider px-4 fade-up delay-7 section-panel reveal">
+            <ul class="cs-hidden autoWidth">
+
+                {% for record in other_products %}
+                {% if record %}
+
+                <li>
+                    <div class="box">
+
+                        <div class="slide-img">
+
+                            {% if record.image_url %}
+                            <img src="{{ record.image_url }}" alt="{{ record.item }}">
+                            {% else %}
+                            <img src="{{ url_for('static', filename='images/' + record.image) }}" alt="{{ record.item }}">
+                            {% endif %}
+
+                            <div class="overlay">
+
+                            <a href="/singleitem/{{ record.item }}"
+                            class="buy-btn">
+                            Buy Now
+                            </a>
+
+                            <br><br>
+
+                            <form action="/add_to_cart"
+                                method="POST">
+
+                                <input type="hidden"
+                                    name="item"
+                                    value="{{ record.item }}">
+
+                                <input type="hidden"
+                                    name="price"
+                                    value="{{ record.currentp }}">
+
+                                <input type="hidden"
+                                    name="image"
+                                    value="{{ record.image }}">
+
+                                <input type="hidden"
+                                    name="qty"
+                                    value="1">
+
+                                <button type="submit"
+                                        class="btn btn-success btn-sm">
+                                    Add To Cart
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                        </div>
+
+                        <div class="detail text-light">
+                            <b>{{ record.item }}</b><br>
+                            <b>{{ record.description }}</b><br>
+                            <p>KES {{ record.currentp }}</p>
+                        </div>
+
+                    </div>
+                </li>
+
+                {% endif %}
+                {% endfor %}
+
+            </ul>
+        </section>
+
+        <br><br>
+
+        <div class="slide-img fade-up delay-8 section-panel reveal">
+
+            <img src="{{ url_for('static', filename='images/healthandfitnessproducts.jpg') }}"
+                 style="width:100%">
+
+            <div class="overlay">
+                <a href="/healthproducts" class="buy-btn">Shop now</a>
+            </div>
+
+        </div>
+
+        <!-- ===== CUSTOMER REVIEWS SECTION ===== -->
+        {% if featured_reviews %}
+        <div class="container py-4">
+            <h3 class="text-light text-center mb-4">⭐ What Our Customers Say</h3>
+            <div class="row g-4">
+                {% for review in featured_reviews %}
+                <div class="col-md-4">
+                    <div class="review-card">
+                        <div class="stars">
+                            {% for i in range(review.rating) %}⭐{% endfor %}
+                        </div>
+                        <p class="review-text">"{{ review.review }}"</p>
+                        <div class="review-author">
+                            {{ review.customer_name }}
+                            <small>Verified Buyer</small>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <hr>
+
+        {% include 'help.html' %}
+
+        <footer class="bg-dark text-center text-white p-3 fade-up delay-8 section-panel">
+            <b>Big Shark © 2026</b>
+        </footer>
+
+        <!-- modal div start -->
+        <div class="modal" id="mymodal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                        <!-- modal header -->
+                        <div class="modal-header">
+                            <h4>LOGIN</h4>
+                            <span>{{error}}</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <!-- modal body -->
+                        <div class="modal-body">
+                             <form action="/login" method="POST">
+                                <input type="email" placeholder="Enter email" class="form-control" name="email">
+                                <br>
+                                <input type="password" placeholder="Enter Password" class="form-control" name="password">
+                                <br>
+                                <button type="submit" class="btn btn-danger">submit</button>
+                             </form>
+                        </div>
+                        <!-- modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">close</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal div end -->
+
+        <!-- modal div start -->
+        <div class="modal" id="mymodal2">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                        <!-- modal header -->
+                        <div class="modal-header">
+                            <h4>SIGNUP</h4>
+                        {{success}} {{error}} {{message}}
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <!-- modal body -->
+                        <div class="modal-body">
+                             <form action="/signup" method="POST">
+                                <input type="text" placeholder="Enter username" class="form-control" name="username">
+                                <br>
+                                <input type="password" placeholder="Enter Password" class="form-control" name="password">
+                                <br>
+                                <input type="email" placeholder="Enter email" class="form-control" name="email">
+                                <br>
+                                <input type="text" placeholder="Enter location" class="form-control" name="location">
+                                <br>
+                                <button type="submit" class="btn btn-danger">submit</button>
+                             </form>
+                        </div>
+                        <!-- modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">close</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal div end -->
+
+    </div>
+    <!-- END PAGE CONTENT WRAPPER -->
+
+    <!-- ===== INTRO REVEAL SCRIPT ===== -->
+    <script>
+        // Hide intro after animation completes
+        document.addEventListener('DOMContentLoaded', function() {
+            const intro = document.getElementById('intro-overlay');
+            
+            // Create particles
+            const particlesContainer = document.getElementById('intro-particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const size = Math.random() * 4 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 20 + 15) + 's';
+                particle.style.animationDelay = (Math.random() * 10) + 's';
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                particlesContainer.appendChild(particle);
+            }
+
+            // Hide intro after 4 seconds
+            setTimeout(function() {
+                intro.classList.add('hidden');
+            }, 4000);
+        });
+    </script>
+
+</body>
+</html>

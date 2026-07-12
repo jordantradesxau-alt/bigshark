@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+
+    <link rel="stylesheet" href="../static/files/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/files/css/lightslider.css">
+    <link rel="stylesheet" href="../static/files/css/style.css">
+
+    <link rel="icon" href="../static/images/bigshark.png?v=2">
+
+    <script src="../static/files/js/bootstrap.min.js"></script>
+    <script src="../static/files/js/jquery.js"></script>
+    <script src="../static/files/js/lightslider.js"></script>
+    <script src="../static/files/js/script.js"></script>
+
+    <style>
+        body{
+            background-image:url(../static/images/bigshark.jpg);
+            background-attachment:fixed;
+        }
+
+        .luxury-heading.silver{
+            background: linear-gradient(
+                270deg,
+                #000000,
+                #1c1c1c,
+                #c0c0c0,
+                #e5e5e5,
+                #c0c0c0,
+                #1c1c1c,
+                #000000
+            );
+
+            background-size:600% 600%;
+            color:#eaeaea;
+            padding:15px;
+        }
+
+        .cart-card{
+            background:rgba(255,255,255,0.05);
+            backdrop-filter:blur(10px);
+            border:1px solid rgba(255,255,255,0.08);
+            border-radius:15px;
+            padding:15px;
+            margin-bottom:20px;
+            transition:all 0.3s ease;
+        }
+
+        .cart-card:hover{
+            border-color:rgba(212,175,55,0.3);
+        }
+
+        .cart-img{
+            width:120px;
+            height:120px;
+            object-fit:cover;
+            border-radius:10px;
+        }
+
+        .cart-total-card{
+            background:rgba(255,255,255,0.05);
+            backdrop-filter:blur(10px);
+            border:1px solid rgba(212,175,55,0.2);
+            border-radius:15px;
+            padding:25px;
+        }
+
+        .cart-total-card h3{
+            color:#d4af37;
+        }
+
+        .quantity-control{
+            display:flex;
+            align-items:center;
+            gap:8px;
+        }
+
+        .quantity-control input{
+            width:60px;
+            text-align:center;
+            background:rgba(255,255,255,0.1);
+            border:1px solid rgba(255,255,255,0.2);
+            border-radius:8px;
+            color:#fff;
+            padding:4px 8px;
+        }
+
+        .quantity-control input:focus{
+            outline:none;
+            border-color:#d4af37;
+        }
+
+        .btn-update{
+            background:rgba(212,175,55,0.2);
+            border:1px solid rgba(212,175,55,0.3);
+            color:#d4af37;
+            padding:4px 12px;
+            border-radius:8px;
+            cursor:pointer;
+            transition:all 0.3s ease;
+        }
+
+        .btn-update:hover{
+            background:rgba(212,175,55,0.3);
+        }
+    </style>
+</head>
+
+<body>
+
+<h1 class="text-center luxury-heading silver">
+    BIG SHARK APPAREL
+</h1>
+
+<hr>
+
+{% include 'navbar.html' %}
+
+<br>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center text-light mb-4">
+                🛒 Shopping Cart
+            </h2>
+        </div>
+    </div>
+
+    {% if cart_items %}
+
+        {% for key,item in cart_items.items() %}
+        <div class="cart-card">
+            <div class="row align-items-center">
+                <div class="col-md-2">
+                    {% if item.image %}
+                    <img src="{{ url_for('static', filename='images/' + item.image) }}" class="cart-img" alt="{{ item.name }}">
+                    {% else %}
+                    <img src="{{ url_for('static', filename='images/placeholder.jpg') }}" class="cart-img" alt="{{ item.name }}">
+                    {% endif %}
+                </div>
+                <div class="col-md-3">
+                    <h4 class="text-light">{{ item.name }}</h4>
+                </div>
+                <div class="col-md-2">
+                    <b class="text-gold">KES {{ item.price }}</b>
+                </div>
+                <div class="col-md-3">
+                    <form action="/update_cart" method="POST" class="quantity-control">
+                        <input type="hidden" name="item" value="{{ item.name }}">
+                        <input type="number" name="qty" value="{{ item.qty }}" min="1" max="99">
+                        <button type="submit" class="btn-update">Update</button>
+                    </form>
+                </div>
+                <div class="col-md-2">
+                    <a href="/remove_from_cart/{{ item.name }}"
+                       class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash"></i> Remove
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="cart-total-card">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h3>Total: KES {{ total }}</h3>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="/checkout" class="btn btn-gold btn-lg">
+                        <i class="fas fa-credit-card"></i> Proceed To Checkout
+                    </a>
+                    <a href="/" class="btn btn-dark btn-lg">
+                        <i class="fas fa-arrow-left"></i> Continue Shopping
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    {% else %}
+
+        <div class="cart-total-card text-center">
+            <i class="fas fa-shopping-cart" style="font-size: 4rem; color: #d4af37; display: block; margin-bottom: 16px;"></i>
+            <h3 class="text-light">Your cart is empty</h3>
+            <br>
+            <a href="/" class="btn btn-gold">
+                <i class="fas fa-arrow-left"></i> Start Shopping
+            </a>
+        </div>
+
+    {% endif %}
+
+</div>
+
+<br><br>
+
+{% include 'help.html' %}
+
+<footer class="bg-dark text-center text-white p-3">
+    <b>Big Shark © 2026</b>
+</footer>
+
+<style>
+    .text-gold { color: #d4af37; }
+    .btn-gold {
+        background: linear-gradient(135deg, #d4af37, #b8962e);
+        border: none;
+        color: #fff;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        padding: 12px 30px;
+        border-radius: 8px;
+    }
+    .btn-gold:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(212,175,55,0.3);
+        color: #fff;
+    }
+</style>
+
+</body>
+</html>

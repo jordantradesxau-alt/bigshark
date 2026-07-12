@@ -1,0 +1,11 @@
+Flask==2.3.3
+psycopg2-binary==2.9.9
+requests==2.31.0
+gunicorn==21.2.0
+Werkzeug==2.3.7
+
+
+SECRET_KEY=big shark
+DATABASE_URL=postgresql://postgres.xbtlrgzbjvujbivyemxd:tradexau23_B@aws-0-eu-west-1.pooler.supabase.com:6543/postgres
+SUPABASE_URL=https://xbtlrgzbjvujbivyemxd.supabase.co/rest/v1/
+SUPABASE_SERVICE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhidGxyZ3pianZ1amJpdnllbXhkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MTA3NzI0MiwiZXhwIjoyMDk2NjUzMjQyfQ.dxNWtxdWRb8MmbC2g_0fHgAcplMURWbiwXfL6LRxniY

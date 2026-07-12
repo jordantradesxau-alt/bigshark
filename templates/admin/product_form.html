@@ -1,0 +1,93 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block title %}{{ 'Edit' if product else 'Add' }} Product{% endblock %}
+{% block page_title %}{{ 'Edit' if product else 'Add' }} Product{% endblock %}
+{% block page_subtitle %}{{ 'Update' if product else 'Create' }} a product in your inventory{% endblock %}
+
+{% block content %}
+
+<div class="admin-card">
+    <form method="POST" enctype="multipart/form-data">
+        <div class="row">
+            <!-- Left Column -->
+            <div class="col-md-8">
+                <div class="form-group mb-3">
+                    <label class="fw-bold">Item Name <span class="text-danger">*</span></label>
+                    <input type="text" name="item" class="form-control bg-dark text-light border-secondary" 
+                           value="{{ product.item if product else '' }}" placeholder="e.g., Performance T-Shirt" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="fw-bold">Description</label>
+                    <textarea name="description" class="form-control bg-dark text-light border-secondary" rows="4" 
+                              placeholder="Product description...">{{ product.description if product else '' }}</textarea>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="fw-bold">Category <span class="text-danger">*</span></label>
+                    <select name="category" class="form-control bg-dark text-light border-secondary" required>
+                        <option value="">Select Category</option>
+                        <option value="menstops" {% if product and product.category == 'menstops' %}selected{% endif %}>Men's Tops</option>
+                        <option value="mensbt" {% if product and product.category == 'mensbt' %}selected{% endif %}>Men's Bottoms</option>
+                        <option value="womenstops" {% if product and product.category == 'womenstops' %}selected{% endif %}>Women's Tops</option>
+                        <option value="womensbt" {% if product and product.category == 'womensbt' %}selected{% endif %}>Women's Bottoms</option>
+                        <option value="accesories" {% if product and product.category == 'accesories' %}selected{% endif %}>Accessories</option>
+                        <option value="offers" {% if product and product.category == 'offers' %}selected{% endif %}>Offers</option>
+                        <option value="other" {% if product and product.category == 'other' %}selected{% endif %}>Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-md-4">
+                <div class="form-group mb-3">
+                    <label class="fw-bold">Price ($) <span class="text-danger">*</span></label>
+                    <input type="number" name="currentp" class="form-control bg-dark text-light border-secondary" 
+                           value="{{ product.currentp if product else '' }}" step="0.01" min="0" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="fw-bold">Stock Quantity</label>
+                    <input type="number" name="stock_quantity" class="form-control bg-dark text-light border-secondary" 
+                           value="{{ product.stock_quantity if product else '0' }}" min="0">
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="fw-bold">Product Image</label>
+                    <input type="file" name="image" class="form-control bg-dark text-light border-secondary" accept="image/*">
+                    {% if product and product.image_url %}
+                    <div class="mt-2">
+                        <img src="{{ product.image_url }}" alt="Current image" style="max-width:100%;max-height:120px;border-radius:8px;object-fit:cover;">
+                        <small class="text-muted d-block">Current image</small>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group mb-3">
+                    <div class="form-check">
+                        <input type="checkbox" name="featured" class="form-check-input" 
+                               {% if product and product.featured %}checked{% endif %}>
+                        <label class="form-check-label">Featured Product</label>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="fw-bold">Status</label>
+                    <select name="status" class="form-control bg-dark text-light border-secondary">
+                        <option value="active" {% if not product or product.status == 'active' %}selected{% endif %}>Active</option>
+                        <option value="inactive" {% if product and product.status == 'inactive' %}selected{% endif %}>Inactive</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-gold">
+                <i class="fas fa-save"></i> {{ 'Update' if product else 'Add' }} Product
+            </button>
+            <a href="{{ url_for('admin_products') }}" class="btn btn-outline-gold">Cancel</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

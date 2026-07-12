@@ -1,0 +1,147 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+{% block page_subtitle %}Overview of your store{% endblock %}
+
+{% block content %}
+
+<!-- Stats Cards -->
+<div class="row g-3 mb-4">
+    <div class="col-md-3 col-6">
+        <div class="admin-card text-center">
+            <i class="fas fa-box fa-2x text-gold"></i>
+            <h3 class="mt-2 mb-0">{{ total_products }}</h3>
+            <small class="text-muted">Total Products</small>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="admin-card text-center">
+            <i class="fas fa-shopping-cart fa-2x text-info"></i>
+            <h3 class="mt-2 mb-0">{{ total_orders }}</h3>
+            <small class="text-muted">Total Orders</small>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="admin-card text-center">
+            <i class="fas fa-users fa-2x text-success"></i>
+            <h3 class="mt-2 mb-0">{{ total_users }}</h3>
+            <small class="text-muted">Total Users</small>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="admin-card text-center">
+            <i class="fas fa-star fa-2x text-warning"></i>
+            <h3 class="mt-2 mb-0">{{ total_reviews }}</h3>
+            <small class="text-muted">Pending Reviews</small>
+        </div>
+    </div>
+</div>
+
+<!-- Category Breakdown -->
+<div class="admin-card">
+    <div class="admin-card-header">
+        <h5><i class="fas fa-tags text-gold"></i> Category Breakdown</h5>
+    </div>
+    <div class="row">
+        {% for cat in categories %}
+        <div class="col-md-3 col-6 mb-2">
+            <div class="d-flex justify-content-between align-items-center p-2" style="background: rgba(255,255,255,0.03); border-radius: 8px;">
+                <span>{{ cat.category|title }}</span>
+                <span class="badge bg-secondary">{{ cat.count }}</span>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-12 text-muted">No categories found.</div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Recent Products & Orders -->
+<div class="row g-3">
+    <div class="col-md-6">
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <h5><i class="fas fa-clock text-gold"></i> Recent Products</h5>
+                <a href="{{ url_for('admin_products') }}" class="btn btn-sm btn-outline-gold">View All</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-dark-custom">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in recent_products %}
+                        <tr>
+                            <td>{{ product.item }}</td>
+                            <td>${{ product.currentp }}</td>
+                            <td><span class="badge badge-status active">{{ product.category }}</span></td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="3" class="text-muted text-center">No products yet.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <h5><i class="fas fa-clock text-info"></i> Recent Orders</h5>
+                <a href="{{ url_for('admin_orders') }}" class="btn btn-sm btn-outline-gold">View All</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-dark-custom">
+                    <thead>
+                        <tr>
+                            <th>Order #</th>
+                            <th>Customer</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in recent_orders %}
+                        <tr>
+                            <td><small>{{ order.order_number }}</small></td>
+                            <td>{{ order.customer_name }}</td>
+                            <td>${{ order.total_amount }}</td>
+                            <td><span class="badge badge-status {{ order.status }}">{{ order.status }}</span></td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="4" class="text-muted text-center">No orders yet.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="admin-card mt-3">
+    <div class="admin-card-header">
+        <h5><i class="fas fa-bolt text-gold"></i> Quick Actions</h5>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <a href="{{ url_for('admin_product_add') }}" class="btn btn-gold">
+            <i class="fas fa-plus"></i> Add Product
+        </a>
+        <a href="{{ url_for('admin_products') }}" class="btn btn-outline-gold">
+            <i class="fas fa-box"></i> Manage Products
+        </a>
+        <a href="{{ url_for('admin_orders') }}" class="btn btn-outline-gold">
+            <i class="fas fa-shopping-cart"></i> Manage Orders
+        </a>
+        <a href="{{ url_for('index') }}" target="_blank" class="btn btn-outline-gold">
+            <i class="fas fa-eye"></i> View Website
+        </a>
+    </div>
+</div>
+
+{% endblock %}

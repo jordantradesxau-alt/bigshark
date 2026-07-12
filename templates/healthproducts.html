@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health & Wellness Products</title>
+
+    <!-- css supporting files -->
+    <link rel="stylesheet" href="../static/files/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/files/css/lightslider.css">
+    <link rel="stylesheet" href="../static/files/css/style.css">
+    <link rel="icon" href="../static/images/bigshark.png?v=2">
+    
+    <!-- js supporting files -->
+    <script src="../static/files/js/bootstrap.min.js"></script>
+    <script src="../static/files/js/jquery.js"></script>
+    <script src="../static/files/js/lightslider.js"></script>
+    <script src="../static/files/js/script.js"></script>
+
+    <style>
+        body{
+            background-image: url(../static/images/bigshark.jpg);
+            background-attachment: fixed;
+        }
+        .luxury-heading.silver {
+            background: linear-gradient(
+                270deg,
+                #000000,
+                #1c1c1c,
+                #c0c0c0,
+                #e5e5e5,
+                #c0c0c0,
+                #1c1c1c,
+                #000000
+            );
+
+            background-size: 600% 600%;
+
+            color: #eaeaea;
+
+            text-shadow:
+                0 0 5px rgba(192, 192, 192, 0.5),
+                0 0 15px rgba(192, 192, 192, 0.4),
+                0 0 30px rgba(192, 192, 192, 0.3);
+            animation: gradientFlow 5s ease infinite;
+            padding:15px;
+        }
+
+        @keyframes gradientFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+            25% {
+                background-position: 50% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            75% {
+                background-position: 50% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .health-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .health-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(212,175,55,0.3);
+        }
+
+        .health-card .icon {
+            font-size: 3rem;
+            margin-bottom: 12px;
+        }
+
+        .health-card h4 {
+            color: #d4af37;
+            font-weight: 700;
+        }
+
+        .health-card p {
+            color: rgba(255,255,255,0.7);
+        }
+    </style>
+    
+</head>
+<body>
+    <h1 class="text-center luxury-heading silver">BIG SHARK APPAREL</h1>
+    <hr>
+    {% include 'navbar.html' %}
+
+    <div class="container py-5">
+
+        <h2 class="text-light text-center mb-4">💪 Health & Wellness</h2>
+        <p class="text-center text-muted mb-5">Discover products to support your fitness journey</p>
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+                <div class="health-card">
+                    <div class="icon">🏋️</div>
+                    <h4>Fitness Equipment</h4>
+                    <p>High-quality resistance bands, foam rollers, and training accessories to enhance your workouts.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="health-card">
+                    <div class="icon">🥤</div>
+                    <h4>Nutrition & Hydration</h4>
+                    <p>Premium shaker bottles and hydration essentials to keep you fueled during intense training sessions.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="health-card">
+                    <div class="icon">🧘</div>
+                    <h4>Recovery & Wellness</h4>
+                    <p>Recovery tools, yoga mats, and wellness products to help you recover and stay balanced.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="text-center mt-5">
+            <p class="text-muted">More products coming soon! Stay tuned for our expanded health and wellness collection.</p>
+            <a href="/" class="btn btn-gold">Return to Shop</a>
+        </div>
+
+    </div>
+
+    <br>
+    <hr>
+    {% include 'help.html' %}
+
+    <footer class="bg-dark text-dark text-center p-2">
+        <b>Jordan .I. oduor &copy 2024. All Rights Reserved</b>
+    </footer>
+
+    <style>
+        .btn-gold {
+            background: linear-gradient(135deg, #d4af37, #b8962e);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            padding: 10px 30px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212,175,55,0.3);
+            color: #fff;
+        }
+    </style>
+    
+</body>
+</html>

@@ -1,0 +1,70 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block title %}Reviews{% endblock %}
+{% block page_title %}Reviews{% endblock %}
+{% block page_subtitle %}Manage customer reviews{% endblock %}
+
+{% block content %}
+
+<div class="admin-card">
+    <div class="table-responsive">
+        <table class="table table-dark-custom">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Review</th>
+                    <th>Rating</th>
+                    <th>Status</th>
+                    <th>Featured</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for review in reviews %}
+                <tr>
+                    <td><strong>{{ review.customer_name }}</strong></td>
+                    <td>{{ review.review|truncate(60) }}</td>
+                    <td>
+                        {% for i in range(review.rating) %}⭐{% endfor %}
+                    </td>
+                    <td>
+                        <span class="badge badge-status {{ review.status }}">
+                            {{ review.status }}
+                        </span>
+                    </td>
+                    <td>
+                        {% if review.is_featured %}
+                        <span class="badge badge-status active"><i class="fas fa-star"></i> Featured</span>
+                        {% else %}
+                        <span class="badge badge-status inactive">No</span>
+                        {% endif %}
+                    </td>
+                    <td><small>{{ review.created_at.strftime('%Y-%m-%d') }}</small></td>
+                    <td>
+                        <div class="btn-group btn-group-sm">
+                            {% if review.status == 'pending' %}
+                            <a href="{{ url_for('admin_review_approve', review_id=review.id) }}" class="btn btn-success" title="Approve">
+                                <i class="fas fa-check"></i>
+                            </a>
+                            {% endif %}
+                            <a href="{{ url_for('admin_review_delete', review_id=review.id) }}" class="btn btn-danger" title="Delete" onclick="return confirm('Delete this review?')">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="7" class="text-center py-4 text-muted">
+                        <i class="fas fa-star fa-2x d-block mb-2"></i>
+                        No reviews yet.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
