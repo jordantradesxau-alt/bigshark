@@ -18,94 +18,191 @@ $(document).ready(function () {
 
 
     // --------------------------
-    // PREMIUM CINEMATIC INTRO
+    // PREMIUM CINEMATIC INTRO (Only on first visit)
     // --------------------------
 
-    $("body").addClass("loading");
+    // Check if intro has been shown before in this session
+    if (sessionStorage.getItem('introShown')) {
+        // Skip intro - show page immediately
+        $("#intro-overlay").css("display", "none");
+        $("body").removeClass("loading");
+        $("#page-content").addClass("show");
+        $("body").css("overflow", "auto");
+    } else {
+        // Show intro
+        $("body").addClass("loading");
 
-    // Create particles dynamically
-    function createParticles() {
-        var particlesContainer = document.getElementById('intro-particles');
-        if (!particlesContainer) return;
-        
-        for (var i = 0; i < 60; i++) {
-            var particle = document.createElement('div');
-            particle.className = 'intro-particle';
-            var size = Math.random() * 5 + 2;
-            particle.style.width = size + 'px';
-            particle.style.height = size + 'px';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDuration = (Math.random() * 25 + 18) + 's';
-            particle.style.animationDelay = (Math.random() * 12) + 's';
-            particle.style.opacity = Math.random() * 0.5 + 0.1;
-            particle.style.background = 'rgba(100, 180, 255, ' + (Math.random() * 0.3 + 0.1) + ')';
-            particlesContainer.appendChild(particle);
+        // Create particles dynamically
+        function createParticles() {
+            var particlesContainer = document.getElementById('intro-particles');
+            if (!particlesContainer) return;
+            
+            for (var i = 0; i < 60; i++) {
+                var particle = document.createElement('div');
+                particle.className = 'intro-particle';
+                var size = Math.random() * 5 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 25 + 18) + 's';
+                particle.style.animationDelay = (Math.random() * 12) + 's';
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                particle.style.background = 'rgba(100, 180, 255, ' + (Math.random() * 0.3 + 0.1) + ')';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // Phase 1: Logo appears from almost invisible with 3D rotation
+        setTimeout(function () {
+            $("#intro-logo").css({
+                transition: "all 1.8s cubic-bezier(0.16, 1, 0.3, 1)",
+                transform: "perspective(1200px) rotateY(-8deg) rotateX(4deg) scale(0.4)",
+                opacity: "0.1"
+            });
+        }, 200);
+
+        // Phase 2: Logo scales to full with wave effect
+        setTimeout(function () {
+            $("#intro-logo").css({
+                transform: "perspective(1200px) rotateY(2deg) rotateX(-1deg) scale(1.1)",
+                opacity: "1",
+                filter: "drop-shadow(0 0 40px rgba(0,183,255,0.6)) drop-shadow(0 0 80px rgba(0,183,255,0.3))"
+            });
+        }, 800);
+
+        // Phase 3: Logo settles with slight wave
+        setTimeout(function () {
+            $("#intro-logo").css({
+                transform: "perspective(1200px) rotateY(-3deg) rotateX(1deg) scale(1)",
+                transition: "all 1.2s cubic-bezier(0.16, 1, 0.3, 1)"
+            });
+        }, 1800);
+
+        // Phase 4: Dramatic pause - light sweep intensifies
+        setTimeout(function () {
+            $(".intro-light-sweep").css({
+                animation: "lightSweep 1.5s ease-in-out"
+            });
+        }, 2500);
+
+        // Phase 5: Logo shrinks and flies upward
+        setTimeout(function () {
+            $("#intro-logo-wrapper").css({
+                transition: "all 1.8s cubic-bezier(0.16, 1, 0.3, 1)",
+                transform: "translateY(-120px) scale(0.35)"
+            });
+            
+            $("#intro-logo").css({
+                transition: "all 1.8s cubic-bezier(0.16, 1, 0.3, 1)",
+                transform: "perspective(1200px) rotateY(0deg) rotateX(0deg) scale(0.9)",
+                filter: "drop-shadow(0 0 20px rgba(0,183,255,0.3))"
+            });
+        }, 3200);
+
+        // Phase 6: Homepage fades in, intro disappears
+        setTimeout(function () {
+            $("#intro-overlay").addClass("hide");
+            $("body").removeClass("loading");
+            $("#page-content").addClass("show");
+            $("body").css("overflow", "auto");
+            
+            // Mark intro as shown for this session
+            sessionStorage.setItem('introShown', 'true');
+        }, 4200);
+
+        // Clean up intro overlay after transition
+        setTimeout(function () {
+            $("#intro-overlay").css("display", "none");
+        }, 5000);
+    }
+
+
+    // --------------------------
+    // AJAX ADD TO CART (No page reload)
+    // --------------------------
+
+    function updateCartCount(count) {
+        var cartBadge = document.querySelector('.badge.bg-danger');
+        if (cartBadge) {
+            cartBadge.textContent = count;
+        } else {
+            // If no badge exists, create one
+            var cartLink = document.querySelector('a[href="/cart"]');
+            if (cartLink) {
+                cartLink.classList.add('position-relative');
+                var badge = document.createElement('span');
+                badge.className = 'position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger';
+                badge.textContent = count;
+                cartLink.appendChild(badge);
+            }
         }
     }
 
-    createParticles();
-
-    // Phase 1: Logo appears from almost invisible with 3D rotation
-    setTimeout(function () {
-        $("#intro-logo").css({
-            transition: "all 1.8s cubic-bezier(0.16, 1, 0.3, 1)",
-            transform: "perspective(1200px) rotateY(-8deg) rotateX(4deg) scale(0.4)",
-            opacity: "0.1"
-        });
-    }, 200);
-
-    // Phase 2: Logo scales to full with wave effect
-    setTimeout(function () {
-        $("#intro-logo").css({
-            transform: "perspective(1200px) rotateY(2deg) rotateX(-1deg) scale(1.1)",
-            opacity: "1",
-            filter: "drop-shadow(0 0 40px rgba(0,183,255,0.6)) drop-shadow(0 0 80px rgba(0,183,255,0.3))"
-        });
-    }, 800);
-
-    // Phase 3: Logo settles with slight wave
-    setTimeout(function () {
-        $("#intro-logo").css({
-            transform: "perspective(1200px) rotateY(-3deg) rotateX(1deg) scale(1)",
-            transition: "all 1.2s cubic-bezier(0.16, 1, 0.3, 1)"
-        });
-    }, 1800);
-
-    // Phase 4: Dramatic pause - light sweep intensifies
-    setTimeout(function () {
-        $(".intro-light-sweep").css({
-            animation: "lightSweep 1.5s ease-in-out"
-        });
-    }, 2500);
-
-    // Phase 5: Logo shrinks and flies upward
-    setTimeout(function () {
-        $("#intro-logo-wrapper").css({
-            transition: "all 1.8s cubic-bezier(0.16, 1, 0.3, 1)",
-            transform: "translateY(-120px) scale(0.35)"
-        });
+    function showToast(message, type) {
+        // Remove existing toasts
+        $('.toast-notification').remove();
         
-        $("#intro-logo").css({
-            transition: "all 1.8s cubic-bezier(0.16, 1, 0.3, 1)",
-            transform: "perspective(1200px) rotateY(0deg) rotateX(0deg) scale(0.9)",
-            filter: "drop-shadow(0 0 20px rgba(0,183,255,0.3))"
-        });
-    }, 3200);
-
-    // Phase 6: Homepage fades in, intro disappears
-    setTimeout(function () {
-        $("#intro-overlay").addClass("hide");
-        $("body").removeClass("loading");
-        $("#page-content").addClass("show");
+        var toast = document.createElement('div');
+        toast.className = 'toast-notification ' + type;
+        toast.textContent = message;
+        document.body.appendChild(toast);
         
-        // Enable scrolling
-        $("body").css("overflow", "auto");
-    }, 4200);
+        setTimeout(function() {
+            toast.classList.add('show');
+        }, 100);
+        
+        setTimeout(function() {
+            toast.classList.remove('show');
+            setTimeout(function() {
+                toast.remove();
+            }, 300);
+        }, 3000);
+    }
 
-    // Clean up intro overlay after transition
-    setTimeout(function () {
-        $("#intro-overlay").css("display", "none");
-    }, 5000);
+    // Handle add to cart forms
+    $(document).on('submit', 'form[action="/add_to_cart"]', function(e) {
+        e.preventDefault(); // Stop page reload
+        
+        var form = $(this);
+        var formData = new FormData(this);
+        
+        // Show loading state on button
+        var btn = form.find('button[type="submit"]');
+        var originalText = btn.html();
+        btn.html('⏳ Adding...');
+        btn.prop('disabled', true);
+        
+        $.ajax({
+            url: '/add_to_cart',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: function(data) {
+                if (data.success) {
+                    // Update cart count
+                    updateCartCount(data.cart_count);
+                    showToast(data.message, 'success');
+                    
+                    // Update any other cart count displays
+                    $('.cart-count').text(data.cart_count);
+                } else {
+                    showToast(data.message || 'Error adding to cart', 'error');
+                }
+            },
+            error: function() {
+                showToast('Error adding to cart. Please try again.', 'error');
+            },
+            complete: function() {
+                // Reset button
+                btn.html(originalText);
+                btn.prop('disabled', false);
+            }
+        });
+    });
 
 
     // --------------------------
