@@ -363,8 +363,16 @@ def add_to_cart():
         }
     
     session['cart'] = cart
-    flash(f'{item_name} added to cart!', 'success')
-    return redirect(request.referrer or '/')
+    
+    # Calculate new cart count
+    cart_count = sum(item['qty'] for item in cart.values())
+    
+    # Return JSON response
+    return jsonify({
+        'success': True,
+        'cart_count': cart_count,
+        'message': f'{item_name} added to cart!'
+    })
 
 @app.route('/remove_from_cart/<item_name>')
 def remove_from_cart(item_name):
