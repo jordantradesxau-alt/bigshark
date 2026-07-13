@@ -835,69 +835,66 @@
         </footer>
 
         <!-- modal div start -->
-        <div class="modal fade" id="mymodal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal" id="mymodal">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="loginModalLabel">LOGIN</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        {% if error %}
-                            <div class="alert alert-danger">{{ error }}</div>
-                        {% endif %}
-                        <form action="/login" method="POST">
-                            <div class="mb-3">
-                                <input type="email" placeholder="Enter email" class="form-control" name="email" required>
-                            </div>
-                            <div class="mb-3">
-                                <input type="password" placeholder="Enter Password" class="form-control" name="password" required>
-                            </div>
-                            <button type="submit" class="btn btn-danger w-100">Submit</button>
-                        </form>
-                    </div>
+                        <!-- modal header -->
+                        <div class="modal-header">
+                            <h4>LOGIN</h4>
+                            <span>{{error}}</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <!-- modal body -->
+                        <div class="modal-body">
+                             <form action="/login" method="POST">
+                                <input type="email" placeholder="Enter email" class="form-control" name="email">
+                                <br>
+                                <input type="password" placeholder="Enter Password" class="form-control" name="password">
+                                <br>
+                                <button type="submit" class="btn btn-danger">submit</button>
+                             </form>
+                        </div>
+                        <!-- modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">close</button>
+                        </div>
                 </div>
             </div>
         </div>
         <!-- modal div end -->
 
         <!-- modal div start -->
-        <div class="modal fade" id="mymodal2" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+        <div class="modal" id="mymodal2">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="signupModalLabel">SIGNUP</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        {% if success %}
-                            <div class="alert alert-success">{{ success }}</div>
-                        {% endif %}
-                        {% if error %}
-                            <div class="alert alert-danger">{{ error }}</div>
-                        {% endif %}
-                        <form action="/signup" method="POST">
-                            <div class="mb-3">
-                                <input type="text" placeholder="Enter username" class="form-control" name="username" required>
-                            </div>
-                            <div class="mb-3">
-                                <input type="password" placeholder="Enter Password" class="form-control" name="password" required>
-                                <small class="text-muted">Must be at least 8 characters</small>
-                            </div>
-                            <div class="mb-3">
-                                <input type="email" placeholder="Enter email" class="form-control" name="email" required>
-                            </div>
-                            <div class="mb-3">
-                                <input type="text" placeholder="Enter location" class="form-control" name="location" required>
-                            </div>
-                            <button type="submit" class="btn btn-danger w-100">Submit</button>
-                        </form>
-                    </div>
+                        <!-- modal header -->
+                        <div class="modal-header">
+                            <h4>SIGNUP</h4>
+                        {{success}} {{error}} {{message}}
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <!-- modal body -->
+                        <div class="modal-body">
+                             <form action="/signup" method="POST">
+                                <input type="text" placeholder="Enter username" class="form-control" name="username">
+                                <br>
+                                <input type="password" placeholder="Enter Password" class="form-control" name="password">
+                                <br>
+                                <input type="email" placeholder="Enter email" class="form-control" name="email">
+                                <br>
+                                <input type="text" placeholder="Enter location" class="form-control" name="location">
+                                <br>
+                                <button type="submit" class="btn btn-danger">submit</button>
+                             </form>
+                        </div>
+                        <!-- modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">close</button>
+                        </div>
                 </div>
             </div>
         </div>
         <!-- modal div end -->
-
     </div>
     <!-- END PAGE CONTENT WRAPPER -->
 
