@@ -867,66 +867,84 @@
     </script>
 
     <!-- modal div start -->
-        <div class="modal" id="mymodal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                        <!-- modal header -->
-                        <div class="modal-header">
-                            <h4>LOGIN</h4>
-                            <span>{{error}}</span>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-                        <!-- modal body -->
-                        <div class="modal-body">
-                             <form action="/login" method="POST">
-                                <input type="email" placeholder="Enter email" class="form-control" name="email">
-                                <br>
-                                <input type="password" placeholder="Enter Password" class="form-control" name="password">
-                                <br>
-                                <button type="submit" class="btn btn-danger">submit</button>
-                             </form>
-                        </div>
-                        <!-- modal footer -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">close</button>
-                        </div>
-                </div>
+<div class="modal fade" id="mymodal2" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="signupModalLabel">📝 SIGNUP</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <form action="/signup" method="POST">
+                    <div class="mb-3">
+                        <input type="text" placeholder="Enter username" class="form-control" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" placeholder="Enter Password" class="form-control" name="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" placeholder="Enter email" class="form-control" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" placeholder="Enter location" class="form-control" name="location" required>
+                    </div>
+                    <button type="submit" class="btn btn-danger w-100">Sign Up</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
-        <!-- modal div end -->
+    </div>
+</div>
+<!-- modal div end -->
 
-        <!-- modal div start -->
-        <div class="modal" id="mymodal2">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                        <!-- modal header -->
-                        <div class="modal-header">
-                            <h4>SIGNUP</h4>
-                        {{success}} {{error}} {{message}}
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-                        <!-- modal body -->
-                        <div class="modal-body">
-                             <form action="/signup" method="POST">
-                                <input type="text" placeholder="Enter username" class="form-control" name="username">
-                                <br>
-                                <input type="password" placeholder="Enter Password" class="form-control" name="password">
-                                <br>
-                                <input type="email" placeholder="Enter email" class="form-control" name="email">
-                                <br>
-                                <input type="text" placeholder="Enter location" class="form-control" name="location">
-                                <br>
-                                <button type="submit" class="btn btn-danger">submit</button>
-                             </form>
-                        </div>
-                        <!-- modal footer -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">close</button>
-                        </div>
-                </div>
+<!-- modal div start -->
+<div class="modal fade" id="mymodal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="loginModalLabel">🔐 LOGIN</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <form action="/login" method="POST">
+                    <div class="mb-3">
+                        <input type="email" placeholder="Enter email" class="form-control" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" placeholder="Enter Password" class="form-control" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-danger w-100">Login</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
-        <!-- modal div end -->
+    </div>
+</div>
+<!-- modal div end -->
 
 </body>
 </html>
